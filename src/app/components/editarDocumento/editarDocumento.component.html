@@ -1,0 +1,32 @@
+<mat-card class="hola">
+
+  <br>
+
+  <mat-card-title primary>
+    Edicion Documento
+  </mat-card-title>
+  <mat-card-content>
+
+    <div class="horizontal">
+      <p>Titulo:</p>
+      <input type="text">
+    </div>
+<br>
+    <div class="horizontal">
+      <p>Contenido:</p>
+      <textarea name="Text1" cols="40" rows="5"></textarea>
+    </div>
+
+
+  </mat-card-content>
+
+
+
+
+  <br>
+  <button mat-stroked-button [routerLink]="['/documentos']">Cancelar</button>
+  <button mat-stroked-button [routerLink]="['/documentos']">Aceptar</button>
+
+
+
+</mat-card>
