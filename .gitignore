@@ -43,3 +43,7 @@ Thumbs.db
 
 #Archivos que parece que no hacen nada
 browserslist
+
+#Archivos build del server
+/build
+
