@@ -1,16 +1,7 @@
 {
     "files.exclude": {
         "**/assets": true,
-        "**/environments": true,
-        "**/favicon.ico": true,
-        "**/main.ts": true,
-        "**/polyfills.ts": true,
-        "**/test.ts": true,
-        "angular.json": true,
-        "e2e": true,
-        "package-lock.json": true,
-        "tsconfig.app.json": true,
-        "tsconfig.spec.json": true
+
     },
     "typescriptHero.imports.insertSemicolons": false,
 }
