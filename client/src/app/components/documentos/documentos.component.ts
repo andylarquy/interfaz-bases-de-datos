@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarDocumentoComponent } from '../editarDocumento/editarDocumento.component';
+import { MatDatepicker } from '@angular/material/datepicker';
+
 
 @Component({
   selector: 'app-documentos',
@@ -8,7 +10,8 @@ import { EditarDocumentoComponent } from '../editarDocumento/editarDocumento.com
   styleUrls: ['./documentos.component.css']
 })
 export class DocumentosComponent implements OnInit {
-
+  public fechaDesde
+  public fechaHasta
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -28,6 +31,10 @@ export class DocumentosComponent implements OnInit {
       }
     })
 
+  }
+  filtrar() {
+    console.log('Fecha desde: ' + this.fechaDesde)
+    console.log('Fecha hasta: ' + this.fechaHasta)
   }
 
 }

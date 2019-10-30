@@ -4,7 +4,6 @@ import { AngularMaterialModule } from './ng-material.module'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
-import { DataSource } from '@angular/cdk/table';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { MenuPrincipalComponent } from 'src/app/components/menuPrincipal/menuPrincipal.component';
@@ -12,6 +11,7 @@ import { DocumentosComponent } from 'src/app/components/documentos/documentos.co
 import { EditarDocumentoComponent } from 'src/app/components/editarDocumento/editarDocumento.component'
 import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
 import { FormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -32,9 +32,11 @@ import { FormsModule } from '@angular/forms';
     AngularMaterialModule,
     CdkTableModule,
 
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers:[
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}],
   bootstrap: [AppComponent],
   entryComponents: [EditarDocumentoComponent]
 })

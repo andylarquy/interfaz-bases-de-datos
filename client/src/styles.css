@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.hola{
+
+.formatoTabla{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,3 +15,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .horizontal{
     display: flex;
 }
+
+#botonFiltrar{
+    height: 10%;
+    width: auto;
+    margin-top: 0.5%;
+}
+
+#selectorDocumentos{
+    position: absolute;
+}
+
+.iconButton{
+    background: transparent;
+    border: none;
+}
+

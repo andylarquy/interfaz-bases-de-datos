@@ -1,4 +1,4 @@
-<mat-card class="hola">
+<mat-card class="formatoTabla">
   <mat-card-title primary>
     Reporte
   </mat-card-title>
@@ -9,6 +9,28 @@
     Documentos Mas Descargados
   </mat-card-title>
   <mat-card-content>
+
+    <div class="horizontal">
+
+      <mat-form-field>
+        <input matInput placeholder="Fecha desde..." [(ngModel)]="fechaDesde1" [matDatepicker]="myDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
+      </mat-form-field>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <mat-form-field>
+        <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta1" [matDatepicker]="myDatepicker2">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker2></mat-datepicker>
+      </mat-form-field>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <button mat-raised-button color="primary" id="botonFiltrar" (click)="filtrar1()">Filtrar</button>
+
+    </div>
 
     <div class="horizontal">
 
@@ -67,9 +89,11 @@
 
     </div>
 
-    <p>Promedio de tasa de transferencia de los documentos menos descargados: X MB/s</p>
+    <p> <b>Promedio de tasa de transferencia de los documentos menos descargados:</b> X MB/s</p>
 
   </mat-card-content>
+
+  <br>
 
   <br>
 
@@ -77,6 +101,31 @@
     Documentos Menos Descargados
   </mat-card-title>
   <mat-card-content>
+
+
+    <div class="horizontal">
+      <mat-form-field>
+        <input matInput placeholder="Fecha desde..." [(ngModel)]="fechaDesde2" [matDatepicker]="myDatepicker3">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker3></mat-datepicker>
+      </mat-form-field>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <mat-form-field>
+        <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta2" [matDatepicker]="myDatepicker4">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker4></mat-datepicker>
+      </mat-form-field>
+
+      &nbsp; &nbsp; &nbsp; &nbsp;
+
+      <button mat-raised-button color="primary" id="botonFiltrar" (click)="filtrar2()">Filtrar</button>
+    </div>
+
+
+
+
 
     <div class="horizontal">
 
@@ -135,7 +184,7 @@
 
     </div>
 
-    <p>Promedio de tasa de transferencia de los documentos menos descargados: X MB/s</p>
+    <p><b>Promedio de tasa de transferencia de los documentos menos descargados:</b> X MB/s</p>
 
   </mat-card-content>
 

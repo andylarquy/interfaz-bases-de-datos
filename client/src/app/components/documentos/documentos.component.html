@@ -1,13 +1,17 @@
-<mat-card class="hola">
+<mat-card class="formatoTabla">
   <mat-card-title primary>
     Documentos
   </mat-card-title>
   <mat-card-content>
 
+
+
     <div class="horizontal">
+
       <mat-form-field>
-        <mat-label>Fecha desde... (dd/MM/YY)</mat-label>
-        <input matInput>
+        <input matInput placeholder="Fecha desde..." [(ngModel)]="fechaDesde" [matDatepicker]="myDatepicker">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker></mat-datepicker>
       </mat-form-field>
 
       &nbsp;
@@ -22,15 +26,16 @@
     </div>
 
     <div class="horizontal">
-      <mat-form-field>
-        <mat-label>Fecha hasta... (dd/MM/YY)</mat-label>
-        <input matInput>
-      </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta" [matDatepicker]="myDatepicker2">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker2></mat-datepicker>
+          </mat-form-field>
 
       &nbsp;
       &nbsp;
 
-      <button mat-raised-button color="primary" id="botonFiltrar">Filtrar</button>
+      <button mat-raised-button color="primary" id="botonFiltrar" (click)="filtrar()">Filtrar</button>
     </div>
 
     <br>
@@ -69,14 +74,14 @@
               <p>Contenido Doc 1</p>
             </td>
             <td>
-                <button class="iconButton" (click)="editarDocumento(documento)">
-                    <span class="iconify" data-icon="mdi:pencil" data-inline="false">
-                    </span>
-                  </button>
-    
-                  <button class="iconButton" (click)="eliminarDocumento(documento)">
-                    <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
-                  </button>
+              <button class="iconButton" (click)="editarDocumento(documento)">
+                <span class="iconify" data-icon="mdi:pencil" data-inline="false">
+                </span>
+              </button>
+
+              <button class="iconButton" (click)="eliminarDocumento(documento)">
+                <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
+              </button>
             </td>
           </tr>
 
