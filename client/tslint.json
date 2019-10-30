@@ -1,8 +1,4 @@
 {
-  "semicolon": [
-    false,
-    "never"
-  ],
   "extends": "tslint:recommended",
   "rules": {
     "array-type": false,
@@ -10,6 +6,10 @@
     "deprecation": {
       "severity": "warning"
     },
+    "semicolon": [
+      false,
+      "never"
+    ],
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,

@@ -5,21 +5,32 @@
   <mat-card-content>
 
     <div class="horizontal">
-      <p>Fecha desde:</p>
-      <input type="text">
+      <mat-form-field>
+        <mat-label>Fecha desde... (dd/MM/YY)</mat-label>
+        <input matInput>
+      </mat-form-field>
+
+      &nbsp;
+      &nbsp;
 
       <div class="horizontal">
-        <p>Extension:</p>
-        <mat-select id="selectorDocumentos" name="" id=""></mat-select>
+        <mat-form-field>
+          <mat-label>Extension...</mat-label>
+          <mat-select id="selectorDocumentos" name="" id=""></mat-select>
+        </mat-form-field>
       </div>
     </div>
 
     <div class="horizontal">
-      <p>Fecha hasta:</p>
-      <input type="text">
+      <mat-form-field>
+        <mat-label>Fecha hasta... (dd/MM/YY)</mat-label>
+        <input matInput>
+      </mat-form-field>
 
-      <p>Fecha hasta:</p>
-      <button mat-stroked-button>Filtrar</button>
+      &nbsp;
+      &nbsp;
+
+      <button mat-raised-button color="primary" id="botonFiltrar">Filtrar</button>
     </div>
 
     <br>
@@ -58,8 +69,14 @@
               <p>Contenido Doc 1</p>
             </td>
             <td>
-              <span class="iconify" data-icon="mdi:pencil" data-inline="false"></span>
-              <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
+                <button class="iconButton" (click)="editarDocumento(documento)">
+                    <span class="iconify" data-icon="mdi:pencil" data-inline="false">
+                    </span>
+                  </button>
+    
+                  <button class="iconButton" (click)="eliminarDocumento(documento)">
+                    <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
+                  </button>
             </td>
           </tr>
 
@@ -80,8 +97,15 @@
               <p>Contenido Doc 2</p>
             </td>
             <td>
-              <span class="iconify" data-icon="mdi:pencil" data-inline="false"></span>
-              <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
+
+              <button class="iconButton" (click)="editarDocumento(documento)">
+                <span class="iconify" data-icon="mdi:pencil" data-inline="false">
+                </span>
+              </button>
+
+              <button class="iconButton" (click)="eliminarDocumento(documento)">
+                <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
+              </button>
             </td>
 
           </tr>
@@ -91,12 +115,12 @@
     </div>
 
     <div>
-      <button mat-stroked-button [routerLink]="['/editarDocumento']">Nuevo</button>
+      <button mat-raised-button color="primary" (click)="crearDocumento()">Nuevo</button>
     </div>
 
     <br>
     <br>
-    <button mat-stroked-button [routerLink]="['/menuPrincipal']">Volver</button>
+    <button mat-stroked-button color="accent" [routerLink]="['/menuPrincipal']">Volver</button>
 
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { EditarDocumentoComponent } from '../editarDocumento/editarDocumento.component';
 
 @Component({
   selector: 'app-documentos',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentosComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
+  }
+
+  crearDocumento() {
+    this.editarDocumento('estoVaASerUnNewDocumento')
+  }
+
+  editarDocumento(estoVaSerUnDocumento: string) {
+
+    const dialogRef = this.dialog.open(EditarDocumentoComponent, {
+      width: '40em',
+      height: '30em',
+      data: {
+        documento: estoVaSerUnDocumento
+      }
+    })
+
   }
 
 }

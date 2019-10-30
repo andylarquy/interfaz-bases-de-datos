@@ -11,6 +11,7 @@ import { MenuPrincipalComponent } from 'src/app/components/menuPrincipal/menuPri
 import { DocumentosComponent } from 'src/app/components/documentos/documentos.component';
 import { EditarDocumentoComponent } from 'src/app/components/editarDocumento/editarDocumento.component'
 import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
     DocumentosComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule,
@@ -33,6 +35,7 @@ import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [EditarDocumentoComponent]
 })
 export class AppModule { }
