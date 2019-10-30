@@ -12,6 +12,7 @@ import { EditarDocumentoComponent } from 'src/app/components/editarDocumento/edi
 import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
 import { FormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { PanelReporteComponent } from './components/panel-reporte/panel-reporte.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     MenuPrincipalComponent,
     EditarDocumentoComponent,
     ReporteComponent,
-    DocumentosComponent
+    DocumentosComponent,
+    PanelReporteComponent
   ],
   imports: [
     FormsModule,
@@ -35,8 +37,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers:[
-    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'}],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   bootstrap: [AppComponent],
   entryComponents: [EditarDocumentoComponent]
 })

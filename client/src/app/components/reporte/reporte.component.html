@@ -3,194 +3,22 @@
     Reporte
   </mat-card-title>
 
-  <br>
-
-  <mat-card-title primary>
-    Documentos Mas Descargados
-  </mat-card-title>
   <mat-card-content>
 
-    <div class="horizontal">
+    <br>
 
-      <mat-form-field>
-        <input matInput placeholder="Fecha desde..." [(ngModel)]="fechaDesde1" [matDatepicker]="myDatepicker">
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker></mat-datepicker>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <mat-form-field>
-        <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta1" [matDatepicker]="myDatepicker2">
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker2></mat-datepicker>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <button mat-raised-button color="primary" id="botonFiltrar" (click)="filtrar1()">Filtrar</button>
-
-    </div>
-
-    <div class="horizontal">
+    <app-panel-reporte titulo="Documentos Mas Descargados"></app-panel-reporte>
 
 
-      <table matSort (matSortChange)="funcionQueOrdena($event)" class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th mat-sort-header="id">ID</th>
-            <th mat-sort-header="nombre">Nombre</th>
-            <th mat-sort-header="extension">Extension</th>
-            <th mat-sort-header="fecha">Fecha</th>
-            <th mat-sort-header="cantidadDeDescargas">Cantidad de descargas</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <p>ID Doc 1</p>
-            </td>
-            <td>
-              <p>Nombre Doc 1</p>
-            </td>
-            <td>
-              <p>Extension Doc 1</p>
-            </td>
-            <td>
-              <p>Fecha Doc 1</p>
-            </td>
-            <td>
-              <p>Contenido Doc 1</p>
-            </td>
+    <br>
+    <br>
 
-          </tr>
+    <app-panel-reporte titulo="Documentos Menos Descargados"></app-panel-reporte>
 
-          <tr>
-            <td>
-              <p>ID Doc 2</p>
-            </td>
-            <td>
-              <p>Nombre Doc 2</p>
-            </td>
-            <td>
-              <p>Extension Doc 2</p>
-            </td>
-            <td>
-              <p>Fecha Doc 2</p>
-            </td>
-            <td>
-              <p>Contenido Doc 2</p>
-            </td>
 
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <p> <b>Promedio de tasa de transferencia de los documentos menos descargados:</b> X MB/s</p>
+    <br>
 
   </mat-card-content>
-
-  <br>
-
-  <br>
-
-  <mat-card-title primary>
-    Documentos Menos Descargados
-  </mat-card-title>
-  <mat-card-content>
-
-
-    <div class="horizontal">
-      <mat-form-field>
-        <input matInput placeholder="Fecha desde..." [(ngModel)]="fechaDesde2" [matDatepicker]="myDatepicker3">
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker3></mat-datepicker>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <mat-form-field>
-        <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta2" [matDatepicker]="myDatepicker4">
-        <mat-datepicker-toggle matSuffix [for]="myDatepicker4"></mat-datepicker-toggle>
-        <mat-datepicker #myDatepicker4></mat-datepicker>
-      </mat-form-field>
-
-      &nbsp; &nbsp; &nbsp; &nbsp;
-
-      <button mat-raised-button color="primary" id="botonFiltrar" (click)="filtrar2()">Filtrar</button>
-    </div>
-
-
-
-
-
-    <div class="horizontal">
-
-
-      <table matSort (matSortChange)="funcionQueOrdena($event)" class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th mat-sort-header="id">ID</th>
-            <th mat-sort-header="nombre">Nombre</th>
-            <th mat-sort-header="extension">Extension</th>
-            <th mat-sort-header="fecha">Fecha</th>
-            <th mat-sort-header="cantidadDeDescargas">Cantidad de descargas</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <p>ID Doc 2</p>
-            </td>
-            <td>
-              <p>Nombre Doc 2</p>
-            </td>
-            <td>
-              <p>Extension Doc 2</p>
-            </td>
-            <td>
-              <p>Fecha Doc 2</p>
-            </td>
-            <td>
-              <p>Descargas Doc 2</p>
-            </td>
-
-          </tr>
-
-          <tr>
-            <td>
-              <p>ID Doc 1</p>
-            </td>
-            <td>
-              <p>Nombre Doc 1</p>
-            </td>
-            <td>
-              <p>Extension Doc 1</p>
-            </td>
-            <td>
-              <p>Fecha Doc 1</p>
-            </td>
-            <td>
-              <p>Descargas Doc 1</p>
-            </td>
-
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <p><b>Promedio de tasa de transferencia de los documentos menos descargados:</b> X MB/s</p>
-
-  </mat-card-content>
-
-  <br>
-
   <button mat-stroked-button color="accent" [routerLink]="['/menuPrincipal']">Volver</button>
-
 
 </mat-card>
