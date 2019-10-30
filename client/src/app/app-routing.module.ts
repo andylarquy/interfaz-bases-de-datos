@@ -9,7 +9,7 @@ export const routes: Routes = [
     { path: '', redirectTo: '/menuPrincipal', pathMatch: 'full' },
     { path: 'menuPrincipal', component: MenuPrincipalComponent },
     { path: 'documentos', component: DocumentosComponent },
-    { path: 'editarDocumento', component: EditarDocumentoComponent },
+    //{ path: 'editarDocumento', component: EditarDocumentoComponent },
     { path: 'reporte', component: ReporteComponent }
 ];
 

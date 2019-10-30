@@ -13,14 +13,14 @@
     <div class="horizontal">
 
 
-      <table class="table table-striped table-hover">
+      <table matSort (matSortChange)="funcionQueOrdena($event)" class="table table-striped table-hover">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Extension</th>
-            <th>Fecha</th>
-            <th>Cantidad de descargas</th>
+            <th mat-sort-header="id">ID</th>
+            <th mat-sort-header="nombre">Nombre</th>
+            <th mat-sort-header="extension">Extension</th>
+            <th mat-sort-header="fecha">Fecha</th>
+            <th mat-sort-header="cantidadDeDescargas">Cantidad de descargas</th>
             <th></th>
           </tr>
         </thead>
@@ -81,14 +81,14 @@
     <div class="horizontal">
 
 
-      <table class="table table-striped table-hover">
+      <table matSort (matSortChange)="funcionQueOrdena($event)" class="table table-striped table-hover">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Extension</th>
-            <th>Fecha</th>
-            <th>Cantidad de descargas</th>
+            <th mat-sort-header="id">ID</th>
+            <th mat-sort-header="nombre">Nombre</th>
+            <th mat-sort-header="extension">Extension</th>
+            <th mat-sort-header="fecha">Fecha</th>
+            <th mat-sort-header="cantidadDeDescargas">Cantidad de descargas</th>
             <th></th>
           </tr>
         </thead>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatCardModule, MatSelectModule, matSelectAnimations } from '@angular/material';
+import { AngularMaterialModule } from './ng-material.module'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -27,12 +27,9 @@ import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
+    AngularMaterialModule,
     CdkTableModule,
-    MatSelectModule
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
