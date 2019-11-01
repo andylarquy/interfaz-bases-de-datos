@@ -1,5 +1,7 @@
+import { queryGetDocumentos, insertAContenidos, insertADocumentos } from '../queries/queries';
 import { Request, Response } from 'express'
 import db from '../database'
+import '../queries/queries'
 
 class IndexController {
 
@@ -8,12 +10,16 @@ class IndexController {
     }
 
     public async getDocumentos(req: Request, res: Response) {
-
-        await db.query('SELECT * FROM Contenido', function (err, rows, fields) {
-            if (err) throw err;
-            const documentos = rows;
-            res.json(documentos);
-        });
+        // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
+        await db.query(queryGetDocumentos,
+            function (err, rows) {
+                if (err) {
+                    res.send({ status: err.errno })
+                } else {
+                    const documentos = rows;
+                    res.json(documentos);
+                }
+            });
 
     }
 
@@ -21,7 +27,7 @@ class IndexController {
         res.json({ text: 'Documento ' + req.params.id })
     }
 
-
+    // TODO: Revisar si se puede encapsular codigo
     public async crearDocumento(req: Request, res: Response): Promise<void> {
 
         // Adapto el body del request del navegador a un
@@ -37,7 +43,7 @@ class IndexController {
 
         // Primero inicio una transaccion (para poder revertirla en caso de fallo)
         // y hago el insert en la tabla de contenidos
-        await db.query('START TRANSACTION; INSERT INTO Contenido set ?;', [contenidos],
+        await db.query(insertADocumentos, [contenidos],
             function (err) {
                 if (err) {
                     res.json({ status: 'error en primer import' }) //TODO: Mejorar codigo de error
@@ -46,7 +52,7 @@ class IndexController {
 
         // Despues ejecutamos el segundo insert, pasandole el ID de LAST_INSERT_ID()
         //que asignó automaticamente la tabla anterior
-        await db.query("INSERT INTO Documentos VALUES(?,LAST_INSERT_ID())", documentos["contenido"],
+        await db.query(insertAContenidos, documentos["contenido"],
             async function (err) {
                 if (!err) {
                     await db.query('COMMIT;')
@@ -56,8 +62,6 @@ class IndexController {
                     res.json({ status: 'error en segundo insert' })//TODO: Mejorar codigo de error
                 }
             })
-
-
     }
 
     public eliminarDocumento(req: Request, res: Response) {
@@ -67,8 +71,6 @@ class IndexController {
     public actualizarDocumento(req: Request, res: Response) {
         res.json({ text: 'Actualizando un documento ' + req.params.id })
     }
-
-
 }
 
 export const indexController = new IndexController()
