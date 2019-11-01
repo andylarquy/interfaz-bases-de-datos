@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import db from '../database'
-import { any } from 'bluebird';
 
 class IndexController {
 
@@ -56,7 +55,6 @@ class IndexController {
                     await db.query('ROLLBACK;')
                     res.json({ status: 'error en segundo insert' })//TODO: Mejorar codigo de error
                 }
-                return any;
             })
 
 
