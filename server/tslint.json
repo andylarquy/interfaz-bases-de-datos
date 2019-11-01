@@ -1,8 +1,4 @@
 {
-  "semicolon": [
-    false,
-    "never"
-  ],
   "extends": "tslint:recommended",
   "rules": {
     "array-type": false,
@@ -18,6 +14,10 @@
       "attribute",
       "app",
       "camelCase"
+    ],
+    "semicolon": [
+      false,
+      "never"
     ],
     "component-selector": [
       true,

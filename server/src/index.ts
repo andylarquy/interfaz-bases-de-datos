@@ -22,7 +22,7 @@ class Server {
 
     routes(): void {
         this.aplicacion.use('/',indexRoutes)
-        this.aplicacion.use('/videos/getVideo',indexRoutes)
+        this.aplicacion.use('/documentos',indexRoutes)
     }
 
     start(): void {

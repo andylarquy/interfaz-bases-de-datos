@@ -12,8 +12,16 @@ class IndexRoutes {
         //Aca van a ir todas las llamadas a la api
         this.router.get('/',indexController.index)
         
-        //Ejemplo de get
-        this.router.get('/videos/getVideo', indexController.getVideo)
+        /* DOCUMENTOS */
+        this.router.get('/documentos',indexController.getDocumentos)
+
+        this.router.post('/documentos', indexController.crearDocumento)
+
+        this.router.get('/documentos/:id',indexController.getDocumentoConId)
+        
+        this.router.delete('/documentos/:id', indexController.eliminarDocumento)
+
+        this.router.put('/documentos/:id', indexController.actualizarDocumento)
     }
 }
 
