@@ -1,4 +1,4 @@
-import { queryGetDocumentos, insertAContenidos, insertADocumentos } from '../queries/queries';
+import { queryGetDocumentos, insertAContenidos, insertADocumentos, queryGetDocumentoConId } from '../queries/queries';
 import { Request, Response } from 'express'
 import db from '../database'
 import '../queries/queries'
@@ -19,12 +19,19 @@ class IndexController {
                     const documentos = rows;
                     res.json(documentos);
                 }
-            });
-
+            })
     }
 
-    public getDocumentoConId(req: Request, res: Response) {
-        res.json({ text: 'Documento ' + req.params.id })
+    public async getDocumentoConId(req: Request, res: Response) {
+        await db.query(queryGetDocumentoConId, req.params.id,
+            function (err, rows) {
+                if (err) {
+                    res.send({ status: err.errno })
+                } else {
+                    const documentos = rows;
+                    res.json(documentos);
+                }
+            })
     }
 
     // TODO: Revisar si se puede encapsular codigo
