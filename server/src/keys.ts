@@ -4,7 +4,6 @@ export default {
         user: 'root',
         password: '',
         database: 'TP Bases de Datos',
-        multipleStatements: true,
-        persistenConection: true
+        multipleStatements: true
     }
 }

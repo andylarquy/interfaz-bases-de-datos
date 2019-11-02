@@ -1,5 +1,7 @@
 import { Router } from 'express'
-import {indexController} from '../controllers/indexController'
+import { modificarDocumentosController } from '../controllers/modificarDocumentosController'
+import { busquedaDocumentosController } from '../controllers/busquedaDocumentosController'
+import { indexController } from '../controllers/indexController'
 
 class IndexRoutes {
     public router: Router = Router()
@@ -10,18 +12,19 @@ class IndexRoutes {
 
     config(): void {
         //Aca van a ir todas las llamadas a la api
-        this.router.get('/',indexController.index)
-        
+        this.router.get('/', indexController.index)
+
         /* DOCUMENTOS */
-        this.router.get('/documentos',indexController.getDocumentos)
+        //Parametros de url que acepta (sort, skip y limit, start y ned)
+        this.router.get('/documentos', busquedaDocumentosController.getDocumentos)
 
-        this.router.post('/documentos', indexController.crearDocumento)
-
-        this.router.get('/documentos/:id',indexController.getDocumentoConId)
+        this.router.get('/documentos/:id', busquedaDocumentosController.getDocumentoConId)
         
-        this.router.delete('/documentos/:id', indexController.eliminarDocumento)
+        this.router.post('/documentos', modificarDocumentosController.crearDocumento)
 
-        this.router.put('/documentos/:id', indexController.actualizarDocumento)
+        this.router.delete('/documentos/:id', modificarDocumentosController.eliminarDocumento)
+
+        this.router.put('/documentos/:id', modificarDocumentosController.actualizarDocumento)
     }
 }
 
