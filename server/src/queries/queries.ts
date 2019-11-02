@@ -12,3 +12,12 @@ AND Documentos.Contenido_idContenido = ?`
 export const insertADocumentos = `START TRANSACTION; INSERT INTO Contenido set ?;`
 
 export const insertAContenidos = `INSERT INTO Documentos VALUES(?,LAST_INSERT_ID())`
+
+export const updateAContenidos = 
+`START TRANSACTION;
+UPDATE Contenido SET titulo = ?
+WHERE Contenido.idContenido = ?;`
+
+export const updateADocumentos =
+`UPDATE Documentos SET contenido = ?
+WHERE Documentos.Contenido_idContenido = ?;`
