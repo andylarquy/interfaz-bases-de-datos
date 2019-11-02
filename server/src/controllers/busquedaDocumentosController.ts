@@ -8,9 +8,10 @@ class BusquedaDocumentosController {
     public async getDocumentos(req: Request, res: Response) {
         let templateQuery = queryGetDocumentos
         templateQuery += getDocumentosFiltradosFecha(req, res)
-
+        templateQuery += getDocumentosFiltradosExtension(req, res)
         templateQuery += getDocumentosSort(req, res)
         templateQuery += getDocumentosPaginados(req, res)
+
 
         console.log('\n La query para pedir documentos resultante es: \n')
         console.log(templateQuery + '\n')
@@ -41,6 +42,10 @@ class BusquedaDocumentosController {
 
 function getDocumentosPaginados(req: Request, res: Response) {
 
+    if (req.query.limit && !req.query.skip) {
+        return '\n' + `LIMIT ${req.query.limit}`
+    }
+
     if (req.query.skip && req.query.limit) {
         return '\n' + `LIMIT ${req.query.skip}, ${req.query.limit}`
     } else {
@@ -53,11 +58,10 @@ function getDocumentosSort(req: Request, res: Response) {
     const sortableColumns = ['idContenido', 'titulo', 'extension', 'fecha_de_publicacion'];
 
     if (req.query.sort) {
-        console.log("le cabió")
         let [column, order] = req.query.sort.split(':')
 
         if (!sortableColumns.includes(column)) {
-            throw new Error('Invalid "sort" column');
+            res.json({ status: 'Invalid sort column' })
         }
 
         if (!order) {
@@ -65,7 +69,7 @@ function getDocumentosSort(req: Request, res: Response) {
         }
 
         if (order !== 'asc' && order !== 'desc') {
-            throw new Error('Invalid "sort" order');
+            res.json({ status: 'invalid sort order' })
         }
 
         return '\n' + `ORDER BY Contenido.${column} ${order}`
@@ -83,6 +87,11 @@ function getDocumentosFiltradosFecha(req: Request, res: Response) {
         return ''
     }
 
+}
+
+function getDocumentosFiltradosExtension(req: Request, res: Response) {
+    //TODO: Validar que no hayan mandado fruta por la url
+    return ` AND Contenido.extension = '${req.query.extension}'`
 }
 
 export const busquedaDocumentosController = new BusquedaDocumentosController()
