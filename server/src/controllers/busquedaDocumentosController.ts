@@ -51,8 +51,6 @@ class BusquedaDocumentosController {
     }
 
     public async getDocumentoConId(req: Request, res: Response) {
-        console.log(req.params.id)
-        console.log("El promedio lo tomo como ID master")
         await db.query(queryGetDocumentoConId, req.params.id,
             function (err, rows) {
                 if (err) {
