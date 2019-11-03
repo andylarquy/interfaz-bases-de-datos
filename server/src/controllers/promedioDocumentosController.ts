@@ -5,10 +5,9 @@ class ProemdioDocumentosController {
 
     public async getPromedioDocumentos(req: Request, res: Response) {
         const params = req.query
-        console.log('me gusta el prmedio')
         const queryPromedioDocumentos = `
         SELECT
-            AVG(DescargaDocumento.velocidad_descarga)
+            AVG(DescargaDocumento.velocidad_descarga) as promedio_velocidad
         FROM 
             DescargaDocumento, Documentos, Contenido
         WHERE

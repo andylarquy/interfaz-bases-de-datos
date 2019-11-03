@@ -26,7 +26,7 @@ class ModificarDocumentosController {
         VALUE(
             ${db.escape(contenidos["extension"])}, 
             ${db.escape(contenidos["titulo"])},
-            CURDATE());`
+            CURDATE() );`
 
         await db.query(insertAContenidos,
             function (err) {
@@ -38,7 +38,7 @@ class ModificarDocumentosController {
         const insertADocumentos =
             `INSERT INTO 
                 Documentos
-             VALUES(${db.escape(documentos['contenido'])},LAST_INSERT_ID())`
+             VALUES( ${db.escape(documentos['contenido'])},LAST_INSERT_ID() )`
 
         await db.query(insertADocumentos,
             async function (err) {
@@ -56,7 +56,7 @@ class ModificarDocumentosController {
 
     public async actualizarDocumento(req: Request, res: Response) {
         const body = req.body[0]
-
+        
         await db.query(updateAContenidos, [body["titulo"], req.params.id],
             function (err) {
                 if (!err) {
@@ -80,9 +80,6 @@ class ModificarDocumentosController {
                 }
             })
     }
-
-
-    // res.json({ text: 'Actualizando un documento ' + req.params.id })
 
     public async bajaLogicaDocumento(req: Request, res: Response) {
         await db.query(bajaLogicaContenido, req.params.id,
