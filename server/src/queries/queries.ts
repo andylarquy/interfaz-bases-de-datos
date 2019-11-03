@@ -1,4 +1,4 @@
-
+//TODO: Borrar queries sobrantes
 export const queryGetDocumentos =
 `SELECT idContenido, extension, titulo, fecha_de_publicacion, contenido
 FROM Contenido, Documentos

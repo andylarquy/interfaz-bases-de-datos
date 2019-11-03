@@ -6,25 +6,36 @@ import '../queries/queries'
 class BusquedaDocumentosController {
 
     public async getDocumentos(req: Request, res: Response) {
-        let templateQuery = queryGetDocumentos
-        templateQuery += getDocumentosFiltradosFecha(req, res)
-        templateQuery += getDocumentosFiltradosExtension(req, res)
-        templateQuery += getDocumentosSort(req, res)
-        templateQuery += getDocumentosPaginados(req, res)
+        const params = req.query
+
+        let columna, orden
+        if (params.sort) {
+            [columna, orden] = params.sort.split(':')
+        }
+
+        const queryBusqueda =
+        `SELECT idContenido, extension, titulo, fecha_de_publicacion, contenido
+        FROM Contenido, Documentos
+        WHERE Contenido.idContenido = Documentos.Contenido_idContenido
+        AND (${db.escape(params.start)} IS NULL OR ${db.escape(params.end)} IS NULL) OR Contenido.fecha_de_publicacion BETWEEN ${db.escape(params.start)} AND ${db.escape(params.end)}
+        AND (${db.escape(params.extension)} IS NULL OR Contenido.extension = ${db.escape(params.extension)})
+        ORDER BY COALESCE(NULL, ${db.escape(columna)} ${db.escape(orden)})
+        LIMIT ${db.escape(+params.skip)}, ${db.escape(+params.limit)}`
 
 
-        console.log('\n La query para pedir documentos resultante es: \n')
-        console.log(templateQuery + '\n')
         // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
-        await db.query(templateQuery,
+        const a = await db.query(queryBusqueda,
             function (err, rows) {
+                println(a.sql)
                 if (err) {
-                    res.send({ status: err.errno })
+                    println(err)
+                    res.status(500).json({ status: 'error' });
                 } else {
                     const documentos = rows;
                     res.json(documentos);
                 }
             })
+
     }
 
     public async getDocumentoConId(req: Request, res: Response) {
@@ -40,58 +51,11 @@ class BusquedaDocumentosController {
     }
 }
 
-function getDocumentosPaginados(req: Request, res: Response) {
 
-    if (req.query.limit && !req.query.skip) {
-        return '\n' + `LIMIT ${req.query.limit}`
-    }
-
-    if (req.query.skip && req.query.limit) {
-        return '\n' + `LIMIT ${req.query.skip}, ${req.query.limit}`
-    } else {
-        return ''
-    }
+function println(any: any) {
+    console.log('\n\n')
+    console.log(any)
+    console.log('\n\n')
 }
 
-function getDocumentosSort(req: Request, res: Response) {
-
-    const sortableColumns = ['idContenido', 'titulo', 'extension', 'fecha_de_publicacion'];
-
-    if (req.query.sort) {
-        let [column, order] = req.query.sort.split(':')
-
-        if (!sortableColumns.includes(column)) {
-            res.json({ status: 'Invalid sort column' })
-        }
-
-        if (!order) {
-            order = 'asc';
-        }
-
-        if (order !== 'asc' && order !== 'desc') {
-            res.json({ status: 'invalid sort order' })
-        }
-
-        return '\n' + `ORDER BY Contenido.${column} ${order}`
-    } else {
-        return ''
-    }
-}
-
-function getDocumentosFiltradosFecha(req: Request, res: Response) {
-
-    if (req.query.start && req.query.end) {
-        //TODO: Validar que no hayan mandado fruta por la url
-        return ` AND Contenido.fecha_de_publicacion BETWEEN '${req.query.start}' AND '${req.query.end}'`
-    } else {
-        return ''
-    }
-
-}
-
-function getDocumentosFiltradosExtension(req: Request, res: Response) {
-    //TODO: Validar que no hayan mandado fruta por la url
-    return ` AND Contenido.extension = '${req.query.extension}'`
-}
-
-export const busquedaDocumentosController = new BusquedaDocumentosController()
+export const busquedaDocumentosController = new BusquedaDocumentosController
