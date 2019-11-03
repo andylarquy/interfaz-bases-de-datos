@@ -23,6 +23,7 @@ class Server {
     routes(): void {
         this.aplicacion.use('/',indexRoutes)
         this.aplicacion.use('/documentos',indexRoutes)
+        this.aplicacion.use('/documentosPromedio',indexRoutes)
     }
 
     start(): void {

@@ -12,19 +12,28 @@ class BusquedaDocumentosController {
             params.sort = params.sort.replace(':', ' ')
         }
 
-        const queryBusqueda =
-            `SELECT idContenido, extension, titulo, fecha_de_publicacion, contenido
-        FROM Contenido, Documentos
-        WHERE Contenido.idContenido = Documentos.Contenido_idContenido AND
-        
-        Contenido.fecha_de_publicacion BETWEEN COALESCE(NULL, ${db.escape(params.start)}) AND 
-        COALESCE(NULL, ${db.escape(params.end)}) AND
-        
-        (${db.escape(params.extension)} IS NULL OR Contenido.extension = ${db.escape(params.extension)})
-        
-        ORDER BY COALESCE(NULL, ${db.escape(params.sort)})
-        
-        LIMIT ${db.escape(+params.skip)}, ${db.escape(+params.limit)}`
+        const queryBusqueda = `
+        SELECT
+            idContenido, extension, titulo, fecha_de_publicacion, contenido
+        FROM 
+            Contenido, Documentos
+        WHERE 
+            Contenido.idContenido = Documentos.Contenido_idContenido
+        AND
+            Contenido.activo = 0
+        AND
+            ( ${db.escape(params.start)} IS NULL
+        OR 
+            ${db.escape(params.end)} IS NULL )
+        OR
+            Contenido.fecha_de_publicacion BETWEEN ${db.escape(params.start)} AND ${db.escape(params.end)} 
+        AND
+            ${db.escape(params.extension)} IS NULL 
+        OR 
+            Contenido.extension = ${db.escape(params.extension)}
+        ORDER BY 
+            COALESCE(NULL, ${db.escape(params.sort)})
+        LIMIT ${db.escape(params.skip)}, ${db.escape(params.limit)}`
 
 
         // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
@@ -42,6 +51,8 @@ class BusquedaDocumentosController {
     }
 
     public async getDocumentoConId(req: Request, res: Response) {
+        console.log(req.params.id)
+        console.log("El promedio lo tomo como ID master")
         await db.query(queryGetDocumentoConId, req.params.id,
             function (err, rows) {
                 if (err) {

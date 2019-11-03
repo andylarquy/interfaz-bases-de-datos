@@ -1,4 +1,4 @@
-import { updateAContenidos, updateADocumentos } from '../queries/queries';
+import { updateAContenidos, updateADocumentos, bajaLogicaContenido } from '../queries/queries';
 import { Request, Response } from 'express'
 import db from '../database'
 import '../queries/queries'
@@ -19,8 +19,10 @@ class ModificarDocumentosController {
         const documentos = { ...body };
         removerCamposDelJSON(documentos, ['titulo', 'extension'])
 
-        const insertAContenidos =
-            `START TRANSACTION; INSERT INTO Contenido(extension, titulo, fecha_de_publicacion)
+        const insertAContenidos =`
+        START TRANSACTION; 
+        INSERT INTO 
+            Contenido(extension, titulo, fecha_de_publicacion)
         VALUE(
             ${db.escape(contenidos["extension"])}, 
             ${db.escape(contenidos["titulo"])},
@@ -34,7 +36,8 @@ class ModificarDocumentosController {
             })
 
         const insertADocumentos =
-            `INSERT INTO Documentos
+            `INSERT INTO 
+                Documentos
              VALUES(${db.escape(documentos['contenido'])},LAST_INSERT_ID())`
 
         await db.query(insertADocumentos,
@@ -81,11 +84,17 @@ class ModificarDocumentosController {
 
     // res.json({ text: 'Actualizando un documento ' + req.params.id })
 
-    public eliminarDocumento(req: Request, res: Response) {
-        res.json({ text: 'Eliminando un documento ' + req.params.id })
+    public async bajaLogicaDocumento(req: Request, res: Response) {
+        await db.query(bajaLogicaContenido, req.params.id,
+            async function (err) {
+                if (err) {
+                    res.status(500).json({ status: 'error' });
+                } else {
+                    res.status(200).json({ status: 'OK' });
+                }
+            })
     }
 }
-
 
 function removerCamposDelJSON(json: any, campos: any[]): void {
     campos.forEach(campoARemover => {

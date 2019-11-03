@@ -146,9 +146,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `TP Bases de Datos`.`DescargaDocumento` (
   `idDescargaDocumento` INT NOT NULL,
   `velocidad_descarga` FLOAT NULL,
-  `Documentos_Contenido_idContenido` INT NOT NULL,
+  `Documentos_Contenido_idContenido` INT NULL,
   `Encuesta_idEncuesta` INT NULL,
-  PRIMARY KEY (`idDescargaDocumento`, `Documentos_Contenido_idContenido`),
+  PRIMARY KEY (`idDescargaDocumento`),
   INDEX `fk_DescargaDocumento_Documentos1_idx` (`Documentos_Contenido_idContenido` ASC),
   INDEX `fk_DescargaDocumento_Encuesta1_idx` (`Encuesta_idEncuesta` ASC),
   CONSTRAINT `fk_DescargaDocumento_Documentos1`
