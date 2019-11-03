@@ -3,9 +3,7 @@ export const queryGetDocumentoConId =
 WHERE Contenido.idContenido = Documentos.Contenido_idContenido
 AND Documentos.Contenido_idContenido = ?`
 
-export const insertADocumentos = `START TRANSACTION; INSERT INTO Contenido set ?;`
 
-export const insertAContenidos = `INSERT INTO Documentos VALUES(?,LAST_INSERT_ID())`
 
 export const updateAContenidos = 
 `START TRANSACTION;

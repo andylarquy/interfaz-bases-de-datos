@@ -1,4 +1,4 @@
-import { insertAContenidos, insertADocumentos, updateAContenidos, updateADocumentos } from '../queries/queries';
+import { updateAContenidos, updateADocumentos } from '../queries/queries';
 import { Request, Response } from 'express'
 import db from '../database'
 import '../queries/queries'
@@ -14,28 +14,36 @@ class ModificarDocumentosController {
 
         //Separo en dos variables el JSON con la informacion respectiva a cada tabla
         const contenidos = { ...body }
-        removerCamposDelJSON(contenidos, ["contenido"])
+        removerCamposDelJSON(contenidos, ['contenido'])
 
         const documentos = { ...body };
         removerCamposDelJSON(documentos, ['titulo', 'extension'])
 
-        // Primero inicio una transaccion (para poder revertirla en caso de fallo)
-        // y hago el insert en la tabla de contenidos
-        await db.query(insertADocumentos, [contenidos],
+        const insertAContenidos =
+            `START TRANSACTION; INSERT INTO Contenido(extension, titulo, fecha_de_publicacion)
+        VALUE(
+            ${db.escape(contenidos["extension"])}, 
+            ${db.escape(contenidos["titulo"])},
+            CURDATE());`
+
+        await db.query(insertAContenidos,
             function (err) {
                 if (err) {
                     res.json({ status: 'error en primer import' }) //TODO: Mejorar codigo de error
                 }
             })
 
-        // Despues ejecutamos el segundo insert, pasandole el ID de LAST_INSERT_ID()
-        //que asignó automaticamente la tabla anterior
-        await db.query(insertAContenidos, documentos["contenido"],
+        const insertADocumentos =
+            `INSERT INTO Documentos
+             VALUES(${db.escape(documentos['contenido'])},LAST_INSERT_ID())`
+
+        await db.query(insertADocumentos,
             async function (err) {
                 if (!err) {
                     await db.query('COMMIT;')
                     res.json({ status: '200' })
                 } else {
+                    console.log(err)
                     await db.query('ROLLBACK;')
                     res.json({ status: 'error en segundo insert' })//TODO: Mejorar codigo de error
                 }

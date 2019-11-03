@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS `TP Bases de Datos`.`Contenido` (
   `idContenido` INT NOT NULL AUTO_INCREMENT COMMENT'\n\n',
   `extension` VARCHAR(3),
   `titulo` VARCHAR(45),
-  `fecha_de_publicacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `fecha_de_publicacion` DATE,
+  `activo` INT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`idContenido`))
 ENGINE = InnoDB;
 
@@ -284,3 +285,4 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
