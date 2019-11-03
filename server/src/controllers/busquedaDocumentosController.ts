@@ -1,4 +1,4 @@
-import { queryGetDocumentos, queryGetDocumentoConId } from '../queries/queries';
+import { queryGetDocumentoConId } from '../queries/queries';
 import { Request, Response } from 'express'
 import db from '../database'
 import '../queries/queries'
