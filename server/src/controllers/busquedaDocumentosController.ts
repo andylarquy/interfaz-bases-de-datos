@@ -27,7 +27,7 @@ class BusquedaDocumentosController {
         OR
             Contenido.fecha_de_publicacion BETWEEN ${db.escape(params.start)} AND ${db.escape(params.end)} 
         AND
-            ${db.escape(params.extension)} IS NULL 
+            ${db.escape(params.extension)} = 'NULL' 
         OR 
             Contenido.extension = ${db.escape(params.extension)}`
 
