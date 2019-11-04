@@ -11,7 +11,7 @@ class DocumentosRoutes {
 
     config(): void {
 
-        //Parametros de url que acepta (sort, skip y limit, start y end)
+        //Parametros de url que acepta (extension, sort, start, y end)
         this.router.get('/documentos', busquedaDocumentosController.getDocumentos)
 
         this.router.get('/documentos/:id', busquedaDocumentosController.getDocumentoConId)

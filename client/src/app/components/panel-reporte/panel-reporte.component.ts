@@ -6,7 +6,6 @@ export interface ReporteDocumentos {
   nombre: string;
   extension: string;
   fecha: string;
-  
 }
 
 const TABLE_DATA: ReporteDocumentos[] = [
@@ -21,7 +20,7 @@ const TABLE_DATA: ReporteDocumentos[] = [
 @Component({
   selector: 'app-panel-reporte',
   templateUrl: './panel-reporte.component.html',
-  styleUrls: ['./panel-reporte.component.css']
+  styleUrls: []
 })
 
 export class PanelReporteComponent implements OnInit {

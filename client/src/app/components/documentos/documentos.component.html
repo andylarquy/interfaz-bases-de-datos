@@ -4,8 +4,6 @@
   </mat-card-title>
   <mat-card-content>
 
-
-
     <div class="horizontal">
 
       <mat-form-field>
@@ -17,20 +15,22 @@
       &nbsp;
       &nbsp;
 
-      <div class="horizontal">
-        <mat-form-field>
-          <mat-label>Extension...</mat-label>
-          <mat-select id="selectorDocumentos" name="" id=""></mat-select>
-        </mat-form-field>
-      </div>
+      <mat-form-field>
+        <mat-label>Extension...</mat-label>
+        <!-- TODO: Sospecho que el id SelectorDocumentos sobra, pero me da miedo sacarlo-->
+        <mat-select id="selectorDocumentos" [(value)]="extensionSeleccionada">
+          <mat-option [value]="null">none</mat-option>
+          <mat-option *ngFor='let elemento of extensionesPosibles' [value]="elemento">{{elemento}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="horizontal">
-        <mat-form-field>
-            <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta" [matDatepicker]="myDatepicker2">
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker2></mat-datepicker>
-          </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Fecha hasta..." [(ngModel)]="fechaHasta" [matDatepicker]="myDatepicker2">
+        <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+        <mat-datepicker #myDatepicker2></mat-datepicker>
+      </mat-form-field>
 
       &nbsp;
       &nbsp;
@@ -39,78 +39,53 @@
     </div>
 
     <br>
-    <br>
-    <br>
 
-    <div class="horizontal">
+    <div class="mat-elevation-z5">
 
+      <table mat-table matSort [dataSource]="dataSource">
 
-      <table matSort (matSortChange)="funcionQueOrdena($event)" class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th mat-sort-header="id">ID</th>
-            <th mat-sort-header="nombre">Nombre</th>
-            <th mat-sort-header="extension">Extension</th>
-            <th mat-sort-header="fecha">Fecha</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <p>ID Doc 1</p>
-            </td>
-            <td>
-              <p>Nombre Doc 1</p>
-            </td>
-            <td>
-              <p>Extension Doc 1</p>
-            </td>
-            <td>
-              <p>Fecha Doc 1</p>
-            </td>
-            <td>
-              <button class="iconButton" (click)="editarDocumento(documento)">
-                <span class="iconify" data-icon="mdi:pencil" data-inline="false">
-                </span>
-              </button>
+        <!-- ID Column -->
+        <ng-container matColumnDef="idContenido">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.idContenido}} </td>
+        </ng-container>
 
-              <button class="iconButton" (click)="eliminarDocumento(documento)">
-                <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
-              </button>
-            </td>
-          </tr>
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="titulo">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
+        </ng-container>
 
-          <tr>
-            <td>
-              <p>ID Doc 2</p>
-            </td>
-            <td>
-              <p>Nombre Doc 2</p>
-            </td>
-            <td>
-              <p>Extension Doc 2</p>
-            </td>
-            <td>
-              <p>Fecha Doc 2</p>
-            </td>
-            <td>
+        <!-- Extension Column -->
+        <ng-container matColumnDef="extension">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> Extensión </th>
+          <td mat-cell *matCellDef="let element"> {{element.extension}} </td>
+        </ng-container>
 
-              <button class="iconButton" (click)="editarDocumento(documento)">
-                <span class="iconify" data-icon="mdi:pencil" data-inline="false">
-                </span>
-              </button>
+        <!-- Fecha Column -->
+        <ng-container matColumnDef="fecha_de_publicacion">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_de_publicacion}} </td>
+        </ng-container>
 
-              <button class="iconButton" (click)="eliminarDocumento(documento)">
-                <span class="iconify" data-icon="mdi-delete" data-inline="false"></span>
-              </button>
-            </td>
+        <!-- Contenido Column -->
+        <ng-container matColumnDef="contenido">
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> Contenido </th>
+          <td mat-cell *matCellDef="let element"> {{element.contenido}} </td>
+        </ng-container>
 
-          </tr>
-        </tbody>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
+      <mat-paginator [pageSizeOptions]="[1,2,5]" showFirstLastButtons (page)="pageEvent = paginatorEvent($event)">
+      </mat-paginator>
+
     </div>
+
+    &nbsp;
+
+
 
     <div>
       <button mat-raised-button color="primary" (click)="crearDocumento()">Nuevo</button>

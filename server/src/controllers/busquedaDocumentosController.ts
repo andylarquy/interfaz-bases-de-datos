@@ -7,7 +7,6 @@ class BusquedaDocumentosController {
 
     public async getDocumentos(req: Request, res: Response) {
         const params = req.query
-
         if (params.sort) {
             params.sort = params.sort.replace(':', ' ')
         }
@@ -30,11 +29,7 @@ class BusquedaDocumentosController {
         AND
             ${db.escape(params.extension)} IS NULL 
         OR 
-            Contenido.extension = ${db.escape(params.extension)}
-        ORDER BY 
-            COALESCE(NULL, ${db.escape(params.sort)})
-        LIMIT ${db.escape(params.skip)}, ${db.escape(params.limit)}`
-
+            Contenido.extension = ${db.escape(params.extension)}`
 
         // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
         const a = await db.query(queryBusqueda,

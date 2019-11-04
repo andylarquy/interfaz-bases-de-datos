@@ -23,40 +23,43 @@
   <button mat-raised-button color="primary" id="botonFiltrar" (click)="filtrar()">Filtrar</button>
 
 </div>
-<table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
 
-<!-- ID Column -->
-<ng-container matColumnDef="id">
-  <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
-  <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-</ng-container>
+<div class="mat-elevation-z5">
+  <table mat-table matSort [dataSource]="dataSource">
 
-<!-- Nombre Column -->
-<ng-container matColumnDef="nombre">
-  <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
-  <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-</ng-container>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
 
-<!-- Extension Column -->
-<ng-container matColumnDef="extension">
-  <th mat-header-cell mat-sort-header *matHeaderCellDef> Extensión </th>
-  <td mat-cell *matCellDef="let element"> {{element.extension}} </td>
-</ng-container>
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
 
-<!-- Fecha Column -->
-<ng-container matColumnDef="fecha">
-  <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha </th>
-  <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-</ng-container>
+    <!-- Extension Column -->
+    <ng-container matColumnDef="extension">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Extensión </th>
+      <td mat-cell *matCellDef="let element"> {{element.extension}} </td>
+    </ng-container>
 
-<!-- Contenido Column -->
-<ng-container matColumnDef="contenido">
-  <th mat-header-cell mat-sort-header *matHeaderCellDef> Contenido </th>
-  <td mat-cell *matCellDef="let element"> {{element.contenido}} </td>
-</ng-container>
+    <!-- Fecha Column -->
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+    </ng-container>
 
-<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <!-- Contenido Column -->
+    <ng-container matColumnDef="contenido">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Contenido </th>
+      <td mat-cell *matCellDef="let element"> {{element.contenido}} </td>
+    </ng-container>
 
-<mat-paginator [pageSizeOptions]="[1,2,5]" showFirstLastButtons></mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[1,2,5]" showFirstLastButtons></mat-paginator>
+</div>

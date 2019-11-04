@@ -2,6 +2,11 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+table {
+    width: 100%;
+  }
+
+  /* TODO: Revisar si sobra */
 .formatoTabla{
     display: flex;
     justify-content: center;
@@ -11,6 +16,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-top: 5%;
     padding-left: 7000px;
 }
+/* */
 
 .horizontal{
     display: flex;
@@ -20,10 +26,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     height: 10%;
     width: auto;
     margin-top: 0.5%;
-}
-
-#selectorDocumentos{
-    position: absolute;
 }
 
 .iconButton{

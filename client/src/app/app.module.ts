@@ -13,6 +13,7 @@ import { ReporteComponent } from 'src/app/components/reporte/reporte.component';
 import { FormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { PanelReporteComponent } from './components/panel-reporte/panel-reporte.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,11 @@ import { PanelReporteComponent } from './components/panel-reporte/panel-reporte.
   ],
   imports: [
     FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     AngularMaterialModule,
     CdkTableModule,
 
