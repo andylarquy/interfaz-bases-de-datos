@@ -34,7 +34,7 @@ class BusquedaDocumentosController {
         // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
         const a = await db.query(queryBusqueda,
             function (err, rows) {
-                println(a.sql)
+                //println(a.sql)
                 if (err) {
                     println(err)
                     res.status(500).json({ status: 'error' });

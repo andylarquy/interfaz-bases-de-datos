@@ -12,8 +12,15 @@ export class ServiceDocumentos {
     constructor(public http: HttpClient) { }
 
     async getDocumentos(params: any): Promise<Documento[]> {
-        const a = await this.http.get<Documento[]>(REST_SERVER_URL + '/documentos', { params }).toPromise()
-        return a
+        return await this.http.get<Documento[]>(REST_SERVER_URL + '/documentos', { params }).toPromise()
+    }
+
+    async agregarDocumentoEnElBack(documento: Documento): Promise<void> {
+        return await this.http.post<void>(REST_SERVER_URL + '/documentos', documento).toPromise()
+    }
+
+    async actualizarDocumentoEnElBack(documento: Documento): Promise<void> {
+        return await this.http.put<void>(REST_SERVER_URL + '/documentos/' + documento.idContenido, documento).toPromise()
     }
 
 }

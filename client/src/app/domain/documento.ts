@@ -5,4 +5,9 @@ export class Documento {
         public extension?: string,
         public titulo?: string,
         public fecha?: Date) { }
+
+    static fromJson(individuoJSON): Documento {
+        return Object.assign(new Documento(), individuoJSON)
+    }
+
 }

@@ -10,7 +10,7 @@ class ModificarDocumentosController {
 
         // Adapto el body del request del navegador a un
         // diccionario que me facilita manejar el JSON
-        const body = req.body[0]
+        const body = req.body
 
         //Separo en dos variables el JSON con la informacion respectiva a cada tabla
         const contenidos = { ...body }
@@ -55,7 +55,7 @@ class ModificarDocumentosController {
 
 
     public async actualizarDocumento(req: Request, res: Response) {
-        const body = req.body[0]
+        const body = req.body
         
         await db.query(updateAContenidos, [body["titulo"], req.params.id],
             function (err) {

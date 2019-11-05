@@ -33,3 +33,20 @@ table {
     border: none;
 }
 
+.botonEliminar {
+    background: transparent;
+    border: none;
+}
+
+.botonEliminar:hover {
+    color: red;
+}
+
+.botonEditar {
+    background: transparent;
+    border: none;
+}
+
+.botonEditar:hover {
+    color: #3F51B5;
+}

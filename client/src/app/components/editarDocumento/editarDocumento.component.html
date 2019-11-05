@@ -5,29 +5,29 @@
   <br>
 
 
-    <mat-form-field class="formTitulo">
-      <mat-label>Titulo...</mat-label>
-      <input matInput>
-    </mat-form-field>
+  <mat-form-field class="formTitulo">
+    <mat-label>Titulo...</mat-label>
+    <input matInput [(ngModel)]="data.documento.titulo">
+  </mat-form-field>
 
   <br>
 
-    <mat-form-field class="formContenido">
-      <mat-label>Contenido...</mat-label>
-      <textarea matInput ></textarea>
-    </mat-form-field>
+  <mat-form-field class="formContenido">
+    <mat-label>Contenido...</mat-label>
+    <textarea matInput [(ngModel)]="data.documento.contenido"></textarea>
+  </mat-form-field>
 
-
-  <mat-form-field class="formExtension">
+  <div *ngIf="!data.esUnaEdicion">
+    <mat-form-field class="formExtension">
       <mat-label>Extension...</mat-label>
-      <mat-select id="selectorDocumentos" name="" id=""></mat-select>
+      <mat-select id="selectorDocumentos" [(ngModel)]="data.documento.extension">
+        <mat-option *ngFor='let extension of extensionesPosibles' [value]="extension">{{extension}}</mat-option>
+      </mat-select>
     </mat-form-field>
+  </div>
 
 
 </div>
-
-
-
 
 <br>
 <button mat-stroked-button color="accent" (click)="cancelarEdicion()">Cancelar</button>
