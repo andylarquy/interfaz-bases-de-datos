@@ -87,7 +87,9 @@ export class PanelReporteComponent implements OnInit {
     this.promedioDocumentosSeleccionados = promedio
   }
 
-
+  renderizaMasDescargados(){
+    return this.order === 'asc'
+  }
 
 }
 

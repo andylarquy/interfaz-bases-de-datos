@@ -1,35 +1,74 @@
-<mat-card class="formatoTabla">
-  <mat-card-title primary>
-    Reporte
-  </mat-card-title>
+<div style="
+          margin-right: -2%;
+          margin-left: -2%;
+          margin-top: -2%;
+          margin-bottom: -2%;
+          height: auto;
+          width: 60%;
+          justify-content: center;
+          align-items: center;
+          margin-left: 20%;
+          margin-right: 20%;
+          margin-top: 5%;" class="mat-elevation-z8">
 
-  <mat-card-content>
-
-    <br>
-
-      <mat-card class="mat-elevation-z3">
-        <app-panel-reporte titulo="Documentos más descargados" order="asc"></app-panel-reporte>
-      </mat-card>
-
-  </mat-card-content> 
-  <mat-card-content>
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div >
-      <mat-card class="mat-elevation-z3">
-        <app-panel-reporte titulo="Documentos menos descargados" order="desc"></app-panel-reporte>
-      </mat-card>
-    </div>
+  <mat-card class="formatoTitulo">
+    <h1 id="tituloMenu">
+      Reporte
+    </h1>
+  </mat-card>
+</div>
 
 
-    <br>
+<div style="
+          margin-right: -2%;
+          margin-left: -2%;
+          margin-top: -2%;
+          margin-bottom: -2%;
+          height: auto;
+          width: 60%;
+          justify-content: center;
+          align-items: center;
+          margin-left: 20%;
+          margin-right: 20%;
+          margin-top: 5%;" class="mat-elevation-z8">
 
-  </mat-card-content>
-  <button mat-stroked-button color="accent" [routerLink]="['/menuPrincipal']">Volver</button>
+  <mat-card class="formatoTabla"> 
+    <app-panel-reporte titulo="Documentos más descargados" order="asc"></app-panel-reporte>
+  </mat-card>
+</div>
 
-</mat-card>
+
+
+<br>
+<br>
+<br>
+
+<div style="
+          margin-right: -2%;
+          margin-left: -2%;
+          margin-top: -2%;
+          margin-bottom: -2%;
+          height: auto;
+          width: 60%;
+          justify-content: center;
+          align-items: center;
+          margin-left: 20%;
+          margin-right: 20%;
+          margin-top: 5%;" class="mat-elevation-z8">
+
+  <mat-card class="formatoTabla">
+    <app-panel-reporte titulo="Documentos menos descargados" order="desc"></app-panel-reporte>
+  </mat-card>
+</div>
+
+
+<br>
+
+
+<button mat-stroked-button id="botonVolver" style="margin-left:-2%; margin:2%;"
+[routerLink]="['/menuPrincipal']">Volver</button>
+
+<!-- Coso para scrollear arriba de todo, no xq no funca
+  <button stlye="margin-left: 80%;">
+    <mat-icon (click)="window.scrollTo(0, 0);">keyboard_arrow_up</mat-icon>
+  </button> -->

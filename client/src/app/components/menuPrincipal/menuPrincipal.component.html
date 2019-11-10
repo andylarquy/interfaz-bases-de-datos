@@ -1,11 +1,30 @@
-<mat-card class="formatoTabla">
-    <mat-card-title primary >
-      Menu Principal
+<div style="
+          margin-right: -2%;
+          margin-left: -2%;
+          margin-top: -2%;
+          margin-bottom: -2%;
+          height: 50%;
+          width: 50%;
+          justify-content: center;
+          align-items: center;
+          margin-left: 20%;
+          margin-right: 20%;
+          margin-top: 5%;" class="mat-elevation-z8">
+
+  <mat-card class="formatoTitulo">
+
+    <mat-card-title primary>
+      <h1 id="tituloMenu">
+        Menu Principal
+      </h1>
     </mat-card-title>
-    <mat-card-content>
-      <button  mat-raised-button color="primary" [routerLink]="['/documentos']">Ver Documentos</button>
+
+    <mat-card-content style="margin-top: 7%;">
+      <button mat-raised-button class="botonMenu" [routerLink]="['/documentos']">Ver Documentos</button>
       <br>
       <br>
-      <button  mat-raised-button color="primary" [routerLink]="['/reporte']">Ver Reporte</button>
+      <button mat-raised-button class="botonMenu" [routerLink]="['/reporte']">Ver Reporte</button>
     </mat-card-content>
   </mat-card>
+
+</div>
