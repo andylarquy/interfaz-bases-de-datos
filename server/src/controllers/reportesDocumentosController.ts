@@ -6,7 +6,6 @@ class ReportesDocumentosController {
 
     public async getDocumentosDescargados(req: Request, res: Response) {
         const params = req.query
-        console.log
 
         if (params.order === 'asc') {
             await getDocumentosMasDescargados(req, res)
@@ -24,8 +23,6 @@ class ReportesDocumentosController {
 
 async function getDocumentosMenosDescargados(req: Request, res: Response) {
     const params = req.query
-    params.order = params.order.replace("'", " ")
-    console.log(params.order.replace("'", " "))
 
     const queryReporte = `
         SELECT
@@ -52,13 +49,11 @@ async function getDocumentosMenosDescargados(req: Request, res: Response) {
 
     const a = await db.query(queryReporte,
         function (err, rows) {
-            println(a.sql)
             if (err) {
                 println(err)
                 res.status(500).json({ status: 'error' });
             } else {
                 const documentos = rows;
-                console.log(documentos)
                 res.json(documentos);
             }
         })
@@ -67,8 +62,6 @@ async function getDocumentosMenosDescargados(req: Request, res: Response) {
 
 async function getDocumentosMasDescargados(req: Request, res: Response) {
     const params = req.query
-    params.order = params.order.replace("'", " ")
-    console.log(params.order.replace("'", " "))
 
     const queryReporte = `
     SELECT
@@ -95,7 +88,6 @@ async function getDocumentosMasDescargados(req: Request, res: Response) {
 
     const a = await db.query(queryReporte,
         function (err, rows) {
-            println(a.sql)
             if (err) {
                 println(err)
                 res.status(500).json({ status: 'error' });

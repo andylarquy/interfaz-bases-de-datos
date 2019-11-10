@@ -60,11 +60,14 @@
      <!-- Contenido Column -->
      <ng-container matColumnDef="velocidad_descarga">
       <th mat-header-cell *matHeaderCellDef> Promedio de velocidades de descarga </th>
-      <td mat-cell *matCellDef="let element"> {{element.velocidad_descarga | number }} mb/s </td>
+      <td mat-cell *matCellDef="let element"> {{element.velocidad_descarga | number }} Mb/s </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[1,2,5]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[1,2,5]" showFirstLastButtons (page)="pageEvent = calcularPromedio($event)" matSortActive="velocidad_descarga" matSortDirection={{order}}></mat-paginator>
+<p>
+  <b>Promedio de velocidades de los documentos seleccionados:</b> {{promedioDocumentosSeleccionados | number}} Mb/s
+</p>
