@@ -105,8 +105,9 @@ export class DocumentosComponent implements OnInit {
     });
   }
 
-  eliminarDocumento(documento: Documento) {
-
+  async eliminarDocumento(documento: Documento) {
+    await this.serviceDocumentos.bajaLogicaDocumentoEnElBack(documento)
+    await this.getDocumentosDelBack()
   }
 
 

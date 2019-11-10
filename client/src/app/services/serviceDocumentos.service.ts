@@ -23,4 +23,8 @@ export class ServiceDocumentos {
         return await this.http.put<void>(REST_SERVER_URL + '/documentos/' + documento.idContenido, documento).toPromise()
     }
 
+    async bajaLogicaDocumentoEnElBack(documento: Documento): Promise<void> {
+        return await this.http.delete<void>(REST_SERVER_URL + '/documentos/' + documento.idContenido).toPromise()
+    }
+
 }
