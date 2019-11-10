@@ -5,6 +5,7 @@ import cors from 'cors'
 import indexRoutes from './routes/indexRoutes'
 import documentosRoutes from './routes/documentosRoutes'
 import promedioDocumentosRoutes from './routes/promedioDocumentosRoutes'
+import reportesDocumentosRoutes from './routes/reportesRoutes'
 class Server {
 
     aplicacion: Application
@@ -27,6 +28,7 @@ class Server {
         this.aplicacion.use(indexRoutes)
         this.aplicacion.use(documentosRoutes)
         this.aplicacion.use(promedioDocumentosRoutes)
+        this.aplicacion.use(reportesDocumentosRoutes)
     }
 
     start(): void {
