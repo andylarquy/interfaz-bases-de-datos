@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Documento } from '../domain/documento';
 import { REST_SERVER_URL } from './serviceConfiguration';
 

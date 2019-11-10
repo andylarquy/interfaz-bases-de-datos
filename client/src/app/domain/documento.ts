@@ -4,10 +4,12 @@ export class Documento {
         public idContenido?: number,
         public extension?: string,
         public titulo?: string,
-        public fecha?: Date) { }
+        public fecha?: Date,
+        // tslint:disable-next-line: variable-name
+        public velocidad_descarga?: number) { }
 
-    static fromJson(individuoJSON): Documento {
-        return Object.assign(new Documento(), individuoJSON)
+    static fromJson(documentoJSON): Documento {
+        return Object.assign(new Documento(), documentoJSON)
     }
 
 }

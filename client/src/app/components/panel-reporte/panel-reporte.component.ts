@@ -3,6 +3,7 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material'
 import { ServiceDocumentos } from 'src/app/services/serviceDocumentos.service';
 import { Documento } from 'src/app/domain/documento';
 import { formatDate } from '@angular/common';
+import { ServiceReporte } from 'src/app/services/serviceReportes.service';
 
 let TABLE_DATA: Documento[]
 
@@ -16,23 +17,22 @@ let TABLE_DATA: Documento[]
 export class PanelReporteComponent implements OnInit {
 
   @Input() titulo: string
+  @Input() order: string
   public fechaDesde
   public fechaHasta
 
   fechaDesdePosta: string = null
   fechaHastaPosta: string = null
 
-  displayedColumns: string[] = ['idContenido', 'nombre', 'extension', 'fecha_de_publicacion'];
+  displayedColumns: string[] = ['idContenido', 'nombre', 'extension', 'fecha_de_publicacion', 'velocidad_descarga'];
   dataSource = new MatTableDataSource(TABLE_DATA)
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
-  @ViewChild(MatSort, { static: true }) sort: MatSort
 
-  constructor(private serviceDocumentos: ServiceDocumentos) { }
+  constructor(private serviceReportes: ServiceReporte) { }
 
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator
-    this.dataSource.sort = this.sort
     this.getDocumentosDelBack()
   }
 
@@ -59,15 +59,17 @@ export class PanelReporteComponent implements OnInit {
       params.end = this.fechaHastaPosta
     }
 
+    params.order = this.order
+
+
     console.log(params)
 
-    console.log(await this.serviceDocumentos.getDocumentos(params))
+    console.log(await this.serviceReportes.getDocumentosReporte(params))
 
-    TABLE_DATA = await this.serviceDocumentos.getDocumentos(params)
+    TABLE_DATA = await this.serviceReportes.getDocumentosReporte(params)
 
     this.dataSource = new MatTableDataSource(TABLE_DATA)
     this.dataSource.paginator = this.paginator
-    this.dataSource.sort = this.sort
   }
 
 
