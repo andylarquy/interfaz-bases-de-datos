@@ -28,15 +28,15 @@
   <table mat-table matSort [dataSource]="dataSource">
 
     <!-- ID Column -->
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="idContenido">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.idContenido}} </td>
     </ng-container>
 
     <!-- Nombre Column -->
     <ng-container matColumnDef="nombre">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.titulo}} </td>
     </ng-container>
 
     <!-- Extension Column -->
@@ -46,9 +46,9 @@
     </ng-container>
 
     <!-- Fecha Column -->
-    <ng-container matColumnDef="fecha">
+    <ng-container matColumnDef="fecha_de_publicacion">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_de_publicacion | date : 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <!-- Contenido Column -->

@@ -62,9 +62,17 @@ export class DocumentosComponent implements OnInit {
   async getDocumentosDelBack() {
     const params: { [id: string]: any } = {}
 
-    params.start = this.fechaDesdePosta
-    params.end = this.fechaHastaPosta
-    params.extension = this.extensionSeleccionadaPosta
+    if (this.fechaDesdePosta) {
+      params.start = this.fechaDesdePosta
+    }
+
+    if (this.fechaHastaPosta) {
+      params.end = this.fechaHastaPosta
+    }
+
+    if (this.extensionSeleccionadaPosta) {
+      params.extension = this.extensionSeleccionadaPosta
+    }
 
     params.sort = this.ordenamiento
     console.log(params)

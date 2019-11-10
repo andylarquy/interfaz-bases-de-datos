@@ -1,20 +1,10 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material'
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material'
+import { ServiceDocumentos } from 'src/app/services/serviceDocumentos.service';
+import { Documento } from 'src/app/domain/documento';
+import { formatDate } from '@angular/common';
 
-export interface ReporteDocumentos {
-  id: number;
-  nombre: string;
-  extension: string;
-  fecha: string;
-}
-
-const TABLE_DATA: ReporteDocumentos[] = [
-  { id: 1, nombre: 'Harry Potter', extension: 'pdf', fecha: '10/10/95'},
-  { id: 2, nombre: 'Tlön, Uqbar, Orbis Tertius', extension: 'pdf', fecha: '10/10/98'},
-  { id: 3, nombre: 'Rayuela', extension: 'doc', fecha: '10/10/01'},
-  { id: 4, nombre: 'Cuarto', extension: 'pdf', fecha: '08/12/15'},
-  { id: 5, nombre: 'Quinto', extension: 'docx', fecha: '05/04/18'},
-];
+let TABLE_DATA: Documento[]
 
 
 @Component({
@@ -29,21 +19,58 @@ export class PanelReporteComponent implements OnInit {
   public fechaDesde
   public fechaHasta
 
-  displayedColumns: string[] = ['id', 'nombre', 'extension', 'fecha'];
+  fechaDesdePosta: string = null
+  fechaHastaPosta: string = null
+
+  displayedColumns: string[] = ['idContenido', 'nombre', 'extension', 'fecha_de_publicacion'];
   dataSource = new MatTableDataSource(TABLE_DATA)
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator
-  constructor() { }
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
+  @ViewChild(MatSort, { static: true }) sort: MatSort
+
+  constructor(private serviceDocumentos: ServiceDocumentos) { }
 
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator
+    this.dataSource.sort = this.sort
+    this.getDocumentosDelBack()
   }
-
 
   filtrar() {
-    console.log('fecha desde ' + this.fechaDesde)
-    console.log('fecha hasta ' + this.fechaHasta)
+    if (this.fechaDesde) {
+      this.fechaDesdePosta = formatDate(this.fechaDesde, 'yyyy-MM-dd', 'en')
+    }
+
+    if (this.fechaHasta) {
+      this.fechaHastaPosta = formatDate(this.fechaHasta, 'yyyy-MM-dd', 'en')
+    }
+
+    this.getDocumentosDelBack()
   }
+
+  async getDocumentosDelBack() {
+    const params: { [id: string]: any } = {}
+
+    if (this.fechaDesdePosta) {
+      params.start = this.fechaDesdePosta
+    }
+
+    if (this.fechaHastaPosta) {
+      params.end = this.fechaHastaPosta
+    }
+
+    console.log(params)
+
+    console.log(await this.serviceDocumentos.getDocumentos(params))
+
+    TABLE_DATA = await this.serviceDocumentos.getDocumentos(params)
+
+    this.dataSource = new MatTableDataSource(TABLE_DATA)
+    this.dataSource.paginator = this.paginator
+    this.dataSource.sort = this.sort
+  }
+
+
 
 }
 

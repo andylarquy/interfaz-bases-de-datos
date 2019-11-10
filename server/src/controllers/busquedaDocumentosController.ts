@@ -21,20 +21,20 @@ class BusquedaDocumentosController {
         AND
             Contenido.activo = 0
         AND
-           ( ( ${db.escape(params.start)} = 'NULL'
+           ( ( ${db.escape(params.start)} IS NULL
         OR 
-            ${db.escape(params.end)} = 'NULL' )
+            ${db.escape(params.end)} IS NULL )
         OR
             Contenido.fecha_de_publicacion >= ${db.escape(params.start)} AND Contenido.fecha_de_publicacion <= ${db.escape(params.end)} )
         AND
-           ( ${db.escape(params.extension)} = 'NULL' 
+           ( ${db.escape(params.extension)} IS NULL
         OR 
             Contenido.extension = ${db.escape(params.extension)} )`
 
         // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
         const a = await db.query(queryBusqueda,
             function (err, rows) {
-                //println(a.sql)
+                println(a.sql)
                 if (err) {
                     println(err)
                     res.status(500).json({ status: 'error' });
