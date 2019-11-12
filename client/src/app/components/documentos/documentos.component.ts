@@ -8,8 +8,12 @@ import { ServiceDocumentos } from 'src/app/services/serviceDocumentos.service';
 import { extensionesPosibles } from 'src/app/domain/extensiones'
 import { Documento } from 'src/app/domain/documento';
 import { formatDate } from '@angular/common';
+import { saveAs } from 'file-saver/dist/FileSaver';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 let TABLE_DATA: Documento[]
+const reader = new FileReader();
 
 @Component({
   selector: 'app-documentos',
@@ -31,12 +35,17 @@ export class DocumentosComponent implements OnInit {
 
   extensionesPosibles = extensionesPosibles
 
+  downloadLink: string
+
+  tituloADescargar: string = ''
+  extensionADescargar: string = ''
+
   displayedColumns: string[] = ['idContenido', 'titulo', 'extension', 'fecha_de_publicacion', 'actions'];
   dataSource = new MatTableDataSource(TABLE_DATA)
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatSort, { static: true }) sort: MatSort
 
-  constructor(public dialog: MatDialog, private serviceDocumentos: ServiceDocumentos) { }
+  constructor(public dialog: MatDialog, private serviceDocumentos: ServiceDocumentos, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator
@@ -110,5 +119,17 @@ export class DocumentosComponent implements OnInit {
     await this.getDocumentosDelBack()
   }
 
+  async descargarDocumento(documento: Documento) {
+    const contenidoB64Encoded = btoa(documento.contenido)
+    this.downloadLink = 'data:application/octet-stream;charset=utf-8;base64,' + contenidoB64Encoded;
+    this.tituloADescargar = documento.titulo
+    this.extensionADescargar = documento.extension
+    console.log(this.downloadLink)
+
+  }
+
+  sanitize(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
 
 }

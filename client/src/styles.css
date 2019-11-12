@@ -140,6 +140,7 @@ table {
 }
 
 .botonEliminar {
+    color: lightcoral;
     background: transparent;
     border: none;
 }
@@ -149,10 +150,22 @@ table {
 }
 
 .botonEditar {
+    color: #57a99a;
     background: transparent;
     border: none;
 }
 
 .botonEditar:hover {
-    color: #3F51B5;
+    color: #184a41;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }

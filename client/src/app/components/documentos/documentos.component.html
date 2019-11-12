@@ -16,6 +16,7 @@
       <h1 id="tituloMenu">
         Documentos
       </h1>
+
     </mat-card-title>
     <mat-card-content>
 
@@ -102,6 +103,14 @@
               <button class="botonEliminar" (click)="eliminarDocumento(element)">
                 <i class="material-icons">delete</i>
               </button>
+
+              &nbsp;
+              &nbsp;
+              <a [href]="sanitize(downloadLink)" download="{{tituloADescargar}}.{{extensionADescargar}}">
+                <button class="botonEditar" (click)="descargarDocumento(element)">
+                  <i class="material-icons">get_app</i>
+                </button>
+              </a>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -115,10 +124,10 @@
 
       &nbsp;
 
-      <div class = "horizontal">
+      <div class="horizontal">
 
         <div>
-          <button mat-stroked-button id="botonVolver"  [routerLink]="['/menuPrincipal']">Volver</button>
+          <button mat-stroked-button id="botonVolver" [routerLink]="['/menuPrincipal']">Volver</button>
         </div>
 
         <div style="text-align: left; margin-left: 70%;">
@@ -126,7 +135,6 @@
         </div>
 
       </div>
-
     </mat-card-content>
   </mat-card>
 </div>

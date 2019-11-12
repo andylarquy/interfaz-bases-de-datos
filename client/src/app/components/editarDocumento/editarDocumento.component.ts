@@ -10,6 +10,8 @@ export interface DialogData {
   esUnaEdicion: boolean
 }
 
+const reader = new FileReader();
+
 @Component({
   selector: 'app-editarDocumento',
   templateUrl: './editarDocumento.component.html',
@@ -25,6 +27,10 @@ export class EditarDocumentoComponent implements OnInit {
     console.log(data.esUnaEdicion)
   }
 
+  //reader = new FileReader();
+  fileToUpload: File = null;
+  loading = false;
+
   ngOnInit() {
   }
 
@@ -32,15 +38,40 @@ export class EditarDocumentoComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  aceptarEdicion() {
+  async aceptarEdicion() {
     // TODO: Validar errores y posiblemente corregir este if
+
+    console.log(this.data.documento.contenido)
     if (this.data.esUnaEdicion) {
-      console.log(this.data.documento.idContenido)
       this.serviceDocumentos.actualizarDocumentoEnElBack(this.data.documento)
     } else {
+      this.loading = false
+      //console.log('Acá tambien ya esta', this.data.documento.contenido)
       this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
     }
     this.dialogRef.close();
   }
+
+  async handleFileInput(files: FileList) {
+    this.loading = true;
+    this.fileToUpload = files.item(0);
+    console.log(this.fileToUpload)
+    this.data.documento.contenido = await this.formatFile()
+    this.loading = false
+
+
+  }
+
+  async formatFile() {
+    return new Promise<string | ArrayBuffer>((resolve) => {
+      reader.readAsBinaryString(this.fileToUpload)
+
+      reader.onload = async () => {
+        await resolve(reader.result)
+      }
+    })
+
+  }
+
 
 }
