@@ -11,8 +11,6 @@ class ModificarDocumentosController {
         // Adapto el body del request del navegador a un
         // diccionario que me facilita manejar el JSON
         const body = req.body
-        console.log(req.body)
-        console.log('llego', req.body.contenido)
         // console.log(text)
 
         // Separo en dos variables el JSON con la informacion respectiva a cada tabla

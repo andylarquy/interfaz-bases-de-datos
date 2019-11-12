@@ -15,7 +15,7 @@
   <div class="horizontal">
     <div>
       <label class="custom-file-upload" for="singleFile">Seleccionar archivo...</label>
-      <input type="file" class="botonMenu" id="singleFile" (change)="handleFileInput($event.target.files)" />
+      <input type="file" accept="{{extensionesPosiblesFormateadas()}}"class="botonMenu" id="singleFile" (change)="handleFileInput($event.target.files)" />
       <br>
     </div>
 
@@ -26,18 +26,10 @@
     </div>
   </div>
 
-  <mat-form-field class="formContenido">
-    <mat-label>Contenido...</mat-label>
-    <textarea matInput [(ngModel)]="data.documento.contenido"></textarea>
-  </mat-form-field>
-
-
-  <div *ngIf="!data.esUnaEdicion">
-    <mat-form-field class="formExtension">
-      <mat-label>Extension...</mat-label>
-      <mat-select id="selectorDocumentos" [(ngModel)]="data.documento.extension">
-        <mat-option *ngFor='let extension of extensionesPosibles' [value]="extension">{{extension}}</mat-option>
-      </mat-select>
+  <div *ngIf="esUnDocumentoDeTextoPlano()">
+    <mat-form-field class="formContenido">
+      <mat-label>Contenido...</mat-label>
+      <textarea matInput [(ngModel)]="data.documento.contenido"></textarea>
     </mat-form-field>
   </div>
 

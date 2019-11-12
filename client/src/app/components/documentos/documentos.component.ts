@@ -124,8 +124,6 @@ export class DocumentosComponent implements OnInit {
     this.downloadLink = 'data:application/octet-stream;charset=utf-8;base64,' + contenidoB64Encoded;
     this.tituloADescargar = documento.titulo
     this.extensionADescargar = documento.extension
-    console.log(this.downloadLink)
-
   }
 
   sanitize(url: string) {

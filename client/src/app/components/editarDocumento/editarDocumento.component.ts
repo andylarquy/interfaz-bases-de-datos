@@ -10,6 +10,8 @@ export interface DialogData {
   esUnaEdicion: boolean
 }
 
+// El file reader lo uso para formatear
+// lo que el usuario sube
 const reader = new FileReader();
 
 @Component({
@@ -24,15 +26,12 @@ export class EditarDocumentoComponent implements OnInit {
     public dialogRef: MatDialogRef<DocumentosComponent>,
     private serviceDocumentos: ServiceDocumentos,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-    console.log(data.esUnaEdicion)
   }
 
-  //reader = new FileReader();
   fileToUpload: File = null;
   loading = false;
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   cancelarEdicion(): void {
     this.dialogRef.close();
@@ -41,37 +40,44 @@ export class EditarDocumentoComponent implements OnInit {
   async aceptarEdicion() {
     // TODO: Validar errores y posiblemente corregir este if
 
-    console.log(this.data.documento.contenido)
     if (this.data.esUnaEdicion) {
       this.serviceDocumentos.actualizarDocumentoEnElBack(this.data.documento)
     } else {
       this.loading = false
-      //console.log('Acá tambien ya esta', this.data.documento.contenido)
       this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
     }
     this.dialogRef.close();
   }
 
   async handleFileInput(files: FileList) {
-    this.loading = true;
+    this.loading = true
+
     this.fileToUpload = files.item(0);
-    console.log(this.fileToUpload)
+    const fileNameAndExtension = this.fileToUpload.name.split('.')
+    this.data.documento.titulo = fileNameAndExtension[0]
+    this.data.documento.extension = fileNameAndExtension[1]
+
     this.data.documento.contenido = await this.formatFile()
+
+
     this.loading = false
-
-
   }
 
   async formatFile() {
     return new Promise<string | ArrayBuffer>((resolve) => {
       reader.readAsBinaryString(this.fileToUpload)
-
       reader.onload = async () => {
         await resolve(reader.result)
       }
     })
-
   }
 
+  esUnDocumentoDeTextoPlano() {
+    return this.data.documento.extension === 'txt'
+  }
+
+  extensionesPosiblesFormateadas() {
+    return this.extensionesPosibles.map(ext => '.' + ext)
+  }
 
 }
