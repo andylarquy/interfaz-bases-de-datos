@@ -20,13 +20,13 @@ class ProemdioDocumentosController {
             ( Contenido.fecha_de_publicacion <= ${db.escape(params.end)} OR ${db.escape(params.end)} IS NULL )`
 
         const a = await db.query(queryPromedioDocumentos,
-            function (err, rows) {
-                println(a.sql)
+            (err, rows) => {
                 if (err) {
                     println(err)
                     res.status(500).json({ status: 'error' });
                 } else {
                     const documentos = rows;
+                    console.log('\n')
                     res.json(documentos);
                 }
             })

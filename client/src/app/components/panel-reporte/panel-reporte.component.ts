@@ -66,9 +66,6 @@ export class PanelReporteComponent implements OnInit {
     }
 
     params.order = this.order
-    console.log(params)
-
-    console.log(await this.serviceReportes.getDocumentosReporte(params))
 
     this.TABLE_DATA = await this.serviceReportes.getDocumentosReporte(params)
 

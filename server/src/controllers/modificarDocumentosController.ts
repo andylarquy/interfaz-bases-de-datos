@@ -30,7 +30,7 @@ class ModificarDocumentosController {
                     CURDATE() );`
 
         await db.query(insertAContenidos,
-            function(err) {
+            (err) => {
                 if (err) {
                     res.json({ status: 'error en primer import' }) // TODO: Mejorar codigo de error
                 }
@@ -42,13 +42,15 @@ class ModificarDocumentosController {
                      VALUES( ${db.escape(documentos.contenido)},LAST_INSERT_ID() )`
 
         await db.query(insertADocumentos,
-            async function(err) {
+            async (err) => {
                 if (!err) {
                     await db.query('COMMIT;')
+                    console.log('\n')
                     res.json({ status: '200' })
                 } else {
                     console.log(err)
                     await db.query('ROLLBACK;')
+                    console.log('\n')
                     res.json({ status: 'error en segundo insert' })// TODO: Mejorar codigo de error
                 }
             })
@@ -59,17 +61,17 @@ class ModificarDocumentosController {
         const body = req.body
 
         await db.query(updateAContenidos, [body.titulo, req.params.id],
-            function(err) {
+            (err) => {
                 if (!err) {
-                    console.log('Se actualizó un elemento de la tabla Contenidos')
+                    console.log('\nSe actualizó un elemento de la tabla Contenidos')
                 } else {
-                    console.log('Hubo un error al actualizar un elemento de la tabla Contenidos')
+                    console.log('\nHubo un error al actualizar un elemento de la tabla Contenidos')
                     res.json({ status: 'error' })
                 }
             })
 
         await db.query(updateADocumentos, [body.contenido, req.params.id],
-            async function(err) {
+            async (err) => {
                 if (!err) {
                     await db.query('COMMIT;')
                     console.log('Se actualizó un elemento de la tabla Documentos, se commitean los cambios')
@@ -84,10 +86,12 @@ class ModificarDocumentosController {
 
     public async bajaLogicaDocumento(req: Request, res: Response) {
         await db.query(bajaLogicaContenido, req.params.id,
-            async function(err) {
+            async (err) => {
                 if (err) {
+                    console.log('\n')
                     res.status(500).json({ status: 'error' });
                 } else {
+                    console.log('\n')
                     res.status(200).json({ status: 'OK' });
                 }
             })

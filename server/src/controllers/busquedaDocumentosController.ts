@@ -7,9 +7,6 @@ class BusquedaDocumentosController {
 
     public async getDocumentos(req: Request, res: Response) {
         const params = req.query
-        if (params.sort) {
-            params.sort = params.sort.replace(':', ' ')
-        }
 
         const queryBusqueda = `
         SELECT
@@ -33,13 +30,13 @@ class BusquedaDocumentosController {
 
         // Traemos todos los campos de los contenidos que estan a su vez en la tabla documentos
         const a = await db.query(queryBusqueda,
-            function (err, rows) {
-                println(a.sql)
+            (err, rows) => {
                 if (err) {
                     println(err)
                     res.status(500).json({ status: 'error' });
                 } else {
                     const documentos = rows;
+                    console.log('\n')
                     res.json(documentos);
                 }
             })
@@ -47,11 +44,13 @@ class BusquedaDocumentosController {
 
     public async getDocumentoConId(req: Request, res: Response) {
         await db.query(queryGetDocumentoConId, req.params.id,
-            function (err, rows) {
+            (err, rows) => {
                 if (err) {
+                    console.log('\n')
                     res.send({ status: err.errno })
                 } else {
                     const documentos = rows;
+                    console.log('\n')
                     res.json(documentos);
                 }
             })
@@ -65,4 +64,4 @@ function println(any: any) {
     console.log('\n\n')
 }
 
-export const busquedaDocumentosController = new BusquedaDocumentosController
+export const busquedaDocumentosController = new BusquedaDocumentosController()

@@ -48,18 +48,19 @@ async function getDocumentosMenosDescargados(req: Request, res: Response) {
             velocidad_descarga ASC`
 
     const a = await db.query(queryReporte,
-        function (err, rows) {
+        (err, rows) => {
             if (err) {
                 println(err)
                 res.status(500).json({ status: 'error' });
             } else {
                 const documentos = rows;
+                console.log('\n')
                 res.json(documentos);
             }
         })
 }
 
-
+// ATENTO AL CODIGO REPETIDO
 async function getDocumentosMasDescargados(req: Request, res: Response) {
     const params = req.query
 
@@ -93,6 +94,7 @@ async function getDocumentosMasDescargados(req: Request, res: Response) {
                 res.status(500).json({ status: 'error' });
             } else {
                 const documentos = rows;
+                console.log('\n')
                 res.json(documentos);
             }
         })
@@ -106,4 +108,4 @@ function println(any: any) {
     console.log('\n\n')
 }
 
-export const reportesDocumentosController = new ReportesDocumentosController
+export const reportesDocumentosController = new ReportesDocumentosController()
