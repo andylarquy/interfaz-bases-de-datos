@@ -31,6 +31,8 @@ export class EditarDocumentoComponent implements OnInit {
   fileToUpload: File = null;
   loading = false;
 
+  errorMessage: string
+
   ngOnInit() { }
 
   cancelarEdicion(): void {
@@ -38,29 +40,45 @@ export class EditarDocumentoComponent implements OnInit {
   }
 
   async aceptarEdicion() {
-    // TODO: Validar errores y posiblemente corregir este if
+    // TODO: corregir este if
+    try {
 
-    if (this.data.esUnaEdicion) {
-      this.serviceDocumentos.actualizarDocumentoEnElBack(this.data.documento)
-    } else {
-      this.loading = false
-      this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
+      this.validarExtension()
+
+      if (this.data.esUnaEdicion) {
+        this.serviceDocumentos.actualizarDocumentoEnElBack(this.
+          data.documento)
+      } else {
+        this.loading = false
+        this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
+      }
+      this.dialogRef.close();
+    }catch(error){
+      this.errorMessage = error.message
     }
-    this.dialogRef.close();
-  }
+}
 
   async handleFileInput(files: FileList) {
-    this.loading = true
+    this.errorMessage = ''
+    try {
 
-    this.fileToUpload = files.item(0);
-    const fileNameAndExtension = this.fileToUpload.name.split('.')
-    this.data.documento.titulo = fileNameAndExtension[0]
-    this.data.documento.extension = fileNameAndExtension[1]
+      this.loading = true
 
-    this.data.documento.contenido = await this.formatFile()
+      this.fileToUpload = files.item(0);
+      const fileNameAndExtension = this.fileToUpload.name.split('.')
+      this.data.documento.titulo = fileNameAndExtension[0]
+      this.data.documento.extension = fileNameAndExtension[1]
+      this.validarExtension()
+
+      this.data.documento.contenido = await this.formatFile()
 
 
-    this.loading = false
+      this.loading = false
+
+    } catch (error) {
+      this.loading = false
+      this.errorMessage = error.message
+    }
   }
 
   async formatFile() {
@@ -78,6 +96,13 @@ export class EditarDocumentoComponent implements OnInit {
 
   extensionesPosiblesFormateadas() {
     return this.extensionesPosibles.map(ext => '.' + ext)
+  }
+
+  validarExtension() {
+    console.log(extensionesPosibles.includes(this.data.documento.extension))
+    if (!extensionesPosibles.includes(this.data.documento.extension)) {
+      throw new Error('La extensión del archivo no está permitida')
+    }
   }
 
 }

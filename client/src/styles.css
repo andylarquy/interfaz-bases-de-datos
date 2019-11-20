@@ -169,3 +169,32 @@ input[type="file"] {
     padding: 6px 12px;
     cursor: pointer;
 }
+
+.fondoModal{
+    background-color: #e1f0df;
+}
+
+#botonAceptar{
+    background-color:#57a99a;
+    color: #d1eecc;
+    padding-bottom: -100px;
+}
+
+.botonExaminar{
+    background-color:#57a99a;
+    color: #d1eecc;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 2.8em;
+}
+
+.botonExminar:hover{
+    background-color:#60b5a4;
+    box-shadow: 5px 10px 1px rgba(33,33,33,.2);
+    
+    -moz-transform: translate(-5px, -5px);
+    -ms-transform: translate(-5px, -5px);
+    -o-transform: translate(-5px, -5px);
+    -webkit-transform: translate(-5px, -5px);
+    transform: translate(-5px, -5px)
+}

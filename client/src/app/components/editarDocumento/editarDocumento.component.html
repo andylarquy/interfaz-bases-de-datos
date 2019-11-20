@@ -11,13 +11,18 @@
   </mat-form-field>
 
   <br>
+  <br>
 
-  <div class="horizontal">
-    <div>
-      <label class="custom-file-upload" for="singleFile">Seleccionar archivo...</label>
-      <input type="file" accept="{{extensionesPosiblesFormateadas()}}"class="botonMenu" id="singleFile" (change)="handleFileInput($event.target.files)" />
-      <br>
-    </div>
+  <div style="margin-bottom: 2%;">
+
+    <button mat-raised-button class="botonExaminar">
+      <div>
+        <label for="singleFile">Examinar...</label>
+        <input type="file" id="singleFile" accept="{{extensionesPosiblesFormateadas()}}"
+          (change)="handleFileInput($event.target.files)" />
+        <br>
+      </div>
+    </button>
 
     &nbsp; &nbsp; &nbsp;
 
@@ -36,6 +41,16 @@
 </div>
 
 <br>
-<button mat-stroked-button color="accent" (click)="cancelarEdicion()">Cancelar</button>
-&nbsp;
-<button mat-raised-button color="primary" (click)="aceptarEdicion()">Aceptar</button>
+
+<div style="width: 100%; margin: auto; margin-top: 2em;" *ngIf="errorMessage" class="md-form">
+    <div class="alert alert-danger">
+        {{errorMessage}}
+    </div>
+</div>
+
+
+<div style="margin-top: 12%; margin-left: 70%; display:flex;">
+  <button mat-raised-button color="accent" (click)="cancelarEdicion()">Cancelar</button>
+  &nbsp;
+  <button mat-raised-button color="primary" id="botonAceptar" (click)="aceptarEdicion()">Aceptar</button>
+</div>
