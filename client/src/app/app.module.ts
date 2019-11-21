@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { PanelReporteComponent } from './components/panel-reporte/panel-reporte.component';
 import { HttpClientModule } from '@angular/common/http';
+import { VentanaConfirmacionComponent } from './components/VentanaConfirmacion/VentanaConfirmacion.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     EditarDocumentoComponent,
     ReporteComponent,
     DocumentosComponent,
-    PanelReporteComponent
+    PanelReporteComponent,
+    VentanaConfirmacionComponent
   ],
   imports: [
     FormsModule,
@@ -42,6 +44,6 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   bootstrap: [AppComponent],
-  entryComponents: [EditarDocumentoComponent]
+  entryComponents: [EditarDocumentoComponent, VentanaConfirmacionComponent]
 })
 export class AppModule { }

@@ -10,6 +10,7 @@ import { Documento } from 'src/app/domain/documento';
 import { formatDate } from '@angular/common';
 import { saveAs } from 'file-saver/dist/FileSaver';
 import { DomSanitizer } from '@angular/platform-browser';
+import { VentanaConfirmacionComponent } from '../VentanaConfirmacion/VentanaConfirmacion.component';
 
 
 let TABLE_DATA: Documento[]
@@ -114,10 +115,6 @@ export class DocumentosComponent implements OnInit {
     });
   }
 
-  async eliminarDocumento(documento: Documento) {
-    await this.serviceDocumentos.bajaLogicaDocumentoEnElBack(documento)
-    await this.getDocumentosDelBack()
-  }
 
   async descargarDocumento(documento: Documento) {
     const contenidoB64Encoded = btoa(documento.contenido)
@@ -130,4 +127,22 @@ export class DocumentosComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
+  //<<<<<<< Boton Modal De Borrar >>>>>>>
+
+  eliminarDocumento(documentoAEliminar: Documento) {
+
+    const dialogRefDelete = this.dialog.open(VentanaConfirmacionComponent, {
+      width: '20em',
+      height: '15em',
+      data: {
+        documento: documentoAEliminar
+      }
+    })
+
+    dialogRefDelete.afterClosed().subscribe(() => {
+      this.getDocumentosDelBack()
+    });
+
+  }
+  
 }
