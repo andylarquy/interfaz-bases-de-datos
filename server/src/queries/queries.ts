@@ -1,5 +1,7 @@
 export const queryGetDocumentoConId = `
-SELECT * FROM
+SELECT
+    idContenido, extension, titulo, fecha_de_publicacion, contenido
+ FROM
     Contenido, Documentos
 WHERE
     Contenido.idContenido = Documentos.Contenido_idContenido

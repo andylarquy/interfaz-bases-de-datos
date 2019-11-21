@@ -10,7 +10,7 @@ class BusquedaDocumentosController {
 
         const queryBusqueda = `
         SELECT
-            idContenido, extension, titulo, fecha_de_publicacion, contenido
+            idContenido, extension, titulo, fecha_de_publicacion
         FROM 
             Contenido, Documentos
         WHERE 
@@ -43,7 +43,7 @@ class BusquedaDocumentosController {
     }
 
     public async getDocumentoConId(req: Request, res: Response) {
-        await db.query(queryGetDocumentoConId, req.params.id,
+        const a = await db.query(queryGetDocumentoConId, req.params.id,
             (err, rows) => {
                 if (err) {
                     console.log('\n')

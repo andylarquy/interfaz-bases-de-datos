@@ -10,9 +10,9 @@ class ModificarDocumentosController {
 
         // Adapto el body del request del navegador a un
         // diccionario que me facilita manejar el JSON
+        console.log(req.body)
         const body = req.body
         // console.log(text)
-
         // Separo en dos variables el JSON con la informacion respectiva a cada tabla
         const contenidos = { ...body }
         removerCamposDelJSON(contenidos, ['contenido'])

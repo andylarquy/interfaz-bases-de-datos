@@ -106,11 +106,12 @@
 
               &nbsp;
               &nbsp;
-              <a [href]="sanitize(downloadLink)" download="{{tituloADescargar}}.{{extensionADescargar}}">
-                <button class="botonEditar" (click)="descargarDocumento(element)">
+              <button class="botonEditar" >
+              <a (click)="onDownloadClick($event, element)" download>
+                  <!-- (click)="descargarDocumento(element)" -->
                   <i class="material-icons">get_app</i>
-                </button>
-              </a>
+                </a>
+              </button>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -16,7 +16,8 @@ import { ServiceDescargas } from 'src/app/services/serviceDescargas.service';
 
 let TABLE_DATA: Documento[]
 const reader = new FileReader();
-
+declare var require: any;
+const axios = require('axios');
 @Component({
   selector: 'app-documentos',
   templateUrl: './documentos.component.html',
@@ -90,8 +91,8 @@ export class DocumentosComponent implements OnInit {
     }
 
     params.sort = this.ordenamiento
-    console.log(params)
 
+    console.log(await this.serviceDocumentos.getDocumentos(params))
 
     TABLE_DATA = await this.serviceDocumentos.getDocumentos(params)
 
@@ -122,6 +123,9 @@ export class DocumentosComponent implements OnInit {
 
 
   async descargarDocumento(documento: Documento) {
+    documento = await this.getDocumentoDelBack(documento)
+
+    console.log(documento)
     const contenidoB64Encoded = btoa(documento.contenido)
     this.downloadLink = 'data:application/octet-stream;charset=utf-8;base64,' + contenidoB64Encoded;
     this.tituloADescargar = documento.titulo
@@ -129,8 +133,39 @@ export class DocumentosComponent implements OnInit {
     this.serviceDescargas.agregarDescargaEnElBack(documento)
   }
 
-  sanitize(url: string) {
+  async getDocumentoDelBack(documento: Documento) {
+    const temp = await this.serviceDocumentos.getDocumentoById(documento.idContenido)
+    return temp[0]
+  }
+
+  async sanitize(url: string, documento: Documento) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  async onDownloadClick(event, documento: Documento) {
+    console.log(documento)
+    await this.descargarDocumento(documento)
+    const anchor = event.target.parentNode;
+    documento = documento[0]
+    try {
+      const response = await axios({
+        method: 'get',
+        url: this.downloadLink,
+        responseType: 'blob',
+        headers: {
+          'Accept': 'application/octet-stream'
+        }
+      });
+
+      const blob = new Blob([response.data], {
+        type: 'application/octet-stream',
+      });
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.download = this.tituloADescargar + '.' + this.extensionADescargar;
+      anchor.click();
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   //<<<<<<< Boton Modal De Borrar >>>>>>>

@@ -5,7 +5,7 @@ export class Documento {
         public extension?: string,
         public titulo?: string,
         public fecha?: Date,
-        public contenido?,
+        public contenido?: any,
         // tslint:disable-next-line: variable-name
         public velocidad_descarga?: number) { }
 

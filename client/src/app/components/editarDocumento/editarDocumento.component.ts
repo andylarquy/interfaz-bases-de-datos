@@ -33,7 +33,11 @@ export class EditarDocumentoComponent implements OnInit {
 
   errorMessage: string
 
-  ngOnInit() { }
+  async ngOnInit() {
+    if(this.data.esUnaEdicion){
+      this.data.documento = await this.serviceDocumentos.getDocumentoById(this.data.documento.idContenido)
+    }
+  }
 
   cancelarEdicion(): void {
     this.dialogRef.close();
@@ -46,8 +50,7 @@ export class EditarDocumentoComponent implements OnInit {
       this.validarArchivo()
 
       if (this.data.esUnaEdicion) {
-        await this.serviceDocumentos.actualizarDocumentoEnElBack(this.
-          data.documento)
+        await this.serviceDocumentos.actualizarDocumentoEnElBack(this.data.documento)
       } else {
         this.loading = false
         await this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
@@ -62,8 +65,7 @@ export class EditarDocumentoComponent implements OnInit {
     this.errorMessage = ''
     this.loading = true
     try {
-
-
+      
       this.fileToUpload = files.item(0);
       const fileNameAndExtension = this.fileToUpload.name.split('.')
       this.data.documento.titulo = fileNameAndExtension[0]
@@ -71,7 +73,7 @@ export class EditarDocumentoComponent implements OnInit {
       this.validarArchivo()
 
       this.data.documento.contenido = await this.formatFile()
-      console.log(this.data.documento.contenido)
+      console.log(this.data.documento)
 
 
 

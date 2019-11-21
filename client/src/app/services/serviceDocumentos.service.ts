@@ -15,6 +15,10 @@ export class ServiceDocumentos {
         return await this.http.get<Documento[]>(REST_SERVER_URL + '/documentos', { params }).toPromise()
     }
 
+    async getDocumentoById(idDocumento: number): Promise<Documento> {
+        return await this.http.get<Documento>(REST_SERVER_URL + '/documentos/' + idDocumento).toPromise()
+    }
+
     async agregarDocumentoEnElBack(documento: Documento): Promise<void> {
         return await this.http.post<void>(REST_SERVER_URL + '/documentos', documento).toPromise()
     }
