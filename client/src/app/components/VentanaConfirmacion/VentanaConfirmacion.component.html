@@ -1,7 +1,7 @@
-<p>¿Está seguro de qué desea eliminar el documento?</p>
+<p style="white-space:nowrap;">¿Está seguro de qué desea eliminar el documento?</p>
 
 <div class="horizontal">
-  <button mat-raised-button (click)="eliminarDocumento()" id="botonAceptar">Si</button>
+  <button mat-raised-button color="accent" (click)="cancelar()">No</button>
 
-  <button mat-raised-button color="accent" (click)="cancelar()" style="margin-left:60%;">No</button>
+  <button mat-raised-button (click)="eliminarDocumento()" id="botonAceptar" style="margin-left: 60%;">Si</button>
 </div>

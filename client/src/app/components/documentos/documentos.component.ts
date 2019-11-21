@@ -132,8 +132,8 @@ export class DocumentosComponent implements OnInit {
   eliminarDocumento(documentoAEliminar: Documento) {
 
     const dialogRefDelete = this.dialog.open(VentanaConfirmacionComponent, {
-      width: '20em',
-      height: '15em',
+      width: '26em',
+      height: '10em',
       data: {
         documento: documentoAEliminar
       }
