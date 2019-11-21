@@ -13,7 +13,7 @@ export interface DialogData {
 // El file reader lo uso para formatear
 // lo que el usuario sube
 const reader = new FileReader();
-
+const PESO_MAXIMO_PERMITIDO_BYTES = 5242880 // Dividido 1048576 lo pasas a MB
 @Component({
   selector: 'app-editarDocumento',
   templateUrl: './editarDocumento.component.html',
@@ -43,37 +43,37 @@ export class EditarDocumentoComponent implements OnInit {
     // TODO: corregir este if
     try {
 
-      this.validarExtension()
+      this.validarArchivo()
 
       if (this.data.esUnaEdicion) {
-        this.serviceDocumentos.actualizarDocumentoEnElBack(this.
+        await this.serviceDocumentos.actualizarDocumentoEnElBack(this.
           data.documento)
       } else {
         this.loading = false
-        this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
+        await this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
       }
       this.dialogRef.close();
-    }catch(error){
+    } catch (error) {
       this.errorMessage = error.message
     }
-}
+  }
 
   async handleFileInput(files: FileList) {
     this.errorMessage = ''
+    this.loading = true
     try {
 
-      this.loading = true
 
       this.fileToUpload = files.item(0);
       const fileNameAndExtension = this.fileToUpload.name.split('.')
       this.data.documento.titulo = fileNameAndExtension[0]
       this.data.documento.extension = fileNameAndExtension[1]
-      this.validarExtension()
+      this.validarArchivo()
 
       this.data.documento.contenido = await this.formatFile()
+      console.log(this.data.documento.contenido)
 
 
-      this.loading = false
 
     } catch (error) {
       this.loading = false
@@ -85,6 +85,7 @@ export class EditarDocumentoComponent implements OnInit {
     return new Promise<string | ArrayBuffer>((resolve) => {
       reader.readAsBinaryString(this.fileToUpload)
       reader.onload = async () => {
+        this.loading = false
         await resolve(reader.result)
       }
     })
@@ -98,10 +99,13 @@ export class EditarDocumentoComponent implements OnInit {
     return this.extensionesPosibles.map(ext => '.' + ext)
   }
 
-  validarExtension() {
-    console.log(extensionesPosibles.includes(this.data.documento.extension))
+  validarArchivo() {
     if (!extensionesPosibles.includes(this.data.documento.extension)) {
       throw new Error('La extensión del archivo no está permitida')
+    }
+
+    if (this.fileToUpload.size > PESO_MAXIMO_PERMITIDO_BYTES) {
+      throw new Error('El máximo peso permitido es de ' + PESO_MAXIMO_PERMITIDO_BYTES / 1048576 + ' MB')
     }
   }
 

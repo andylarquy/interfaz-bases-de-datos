@@ -112,7 +112,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS `TP Bases de Datos`.`Documentos` (
-  `contenido` TEXT NULL,
+  `contenido` MEDIUMBLOB NULL,
   `Contenido_idContenido` INT NOT NULL,
   PRIMARY KEY (`Contenido_idContenido`),
   INDEX `fk_Documentos_Contenido1_idx` (`Contenido_idContenido` ASC),
