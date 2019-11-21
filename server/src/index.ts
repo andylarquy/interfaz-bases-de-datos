@@ -6,6 +6,7 @@ import indexRoutes from './routes/indexRoutes'
 import documentosRoutes from './routes/documentosRoutes'
 import promedioDocumentosRoutes from './routes/promedioDocumentosRoutes'
 import reportesDocumentosRoutes from './routes/reportesRoutes'
+import descargasRoutes from './routes/descargasRoutes'
 class Server {
 
     aplicacion: Application
@@ -20,7 +21,7 @@ class Server {
         this.aplicacion.set('port', process.env.PORT || 3001)
         this.aplicacion.use(morgan('dev'))
         this.aplicacion.use(cors())
-        this.aplicacion.use(express.json({ limit: '50000mb'}))
+        this.aplicacion.use(express.json({ limit: '50000mb' }))
         this.aplicacion.use(express.urlencoded({ limit: '50000mb', extended: true }))
     }
 
@@ -29,6 +30,7 @@ class Server {
         this.aplicacion.use(documentosRoutes)
         this.aplicacion.use(promedioDocumentosRoutes)
         this.aplicacion.use(reportesDocumentosRoutes)
+        this.aplicacion.use(descargasRoutes)
     }
 
     start(): void {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import db from '../database'
 
-class ProemdioDocumentosController {
+class PromedioDocumentosController {
 
     public async getPromedioDocumentos(req: Request, res: Response) {
         const params = req.query
@@ -39,4 +39,4 @@ function println(any: any) {
     console.log('\n\n')
 }
 
-export const promedioDocumentosController = new ProemdioDocumentosController
+export const promedioDocumentosController = new PromedioDocumentosController()

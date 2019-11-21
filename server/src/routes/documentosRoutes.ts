@@ -21,6 +21,7 @@ class DocumentosRoutes {
         this.router.delete('/documentos/:id', modificarDocumentosController.bajaLogicaDocumento)
 
         this.router.put('/documentos/:id', modificarDocumentosController.actualizarDocumento)
+
     }
 }
 

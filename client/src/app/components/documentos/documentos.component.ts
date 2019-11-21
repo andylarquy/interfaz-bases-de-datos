@@ -11,6 +11,7 @@ import { formatDate } from '@angular/common';
 import { saveAs } from 'file-saver/dist/FileSaver';
 import { DomSanitizer } from '@angular/platform-browser';
 import { VentanaConfirmacionComponent } from '../VentanaConfirmacion/VentanaConfirmacion.component';
+import { ServiceDescargas } from 'src/app/services/serviceDescargas.service';
 
 
 let TABLE_DATA: Documento[]
@@ -46,7 +47,11 @@ export class DocumentosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatSort, { static: true }) sort: MatSort
 
-  constructor(public dialog: MatDialog, private serviceDocumentos: ServiceDocumentos, private sanitizer: DomSanitizer) { }
+  constructor(
+    public dialog: MatDialog,
+    private serviceDocumentos: ServiceDocumentos,
+    private serviceDescargas: ServiceDescargas,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator
@@ -121,6 +126,7 @@ export class DocumentosComponent implements OnInit {
     this.downloadLink = 'data:application/octet-stream;charset=utf-8;base64,' + contenidoB64Encoded;
     this.tituloADescargar = documento.titulo
     this.extensionADescargar = documento.extension
+    this.serviceDescargas.agregarDescargaEnElBack(documento)
   }
 
   sanitize(url: string) {
@@ -144,5 +150,5 @@ export class DocumentosComponent implements OnInit {
     });
 
   }
-  
+
 }
