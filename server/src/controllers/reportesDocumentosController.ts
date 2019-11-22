@@ -27,17 +27,19 @@ async function getDocumentosMenosDescargados(req: Request, res: Response) {
 
     const queryReporte = `
         SELECT
-            idContenido, extension, titulo, fecha_de_publicacion, AVG(DescargaDocumento.velocidad_descarga) as velocidad_descarga
-        FROM 
+            idContenido, extension, titulo, fecha_de_publicacion,
+            AVG(DescargaDocumento.velocidad_descarga) as velocidad_descarga,
+            COUNT(DescargaDocumento.Documentos_Contenido_idContenido) as cantidad_descargas
+        FROM
             Contenido
-        INNER JOIN 
+        INNER JOIN
             Documentos ON Contenido.idContenido = Documentos.Contenido_idContenido
         INNER JOIN
              DescargaDocumento ON DescargaDocumento.Documentos_Contenido_idContenido = Documentos.Contenido_idContenido
 
         WHERE
            ( ( ${db.escape(params.start)} IS NULL
-        OR 
+        OR
             ${db.escape(params.end)} IS NULL )
         OR
             Contenido.fecha_de_publicacion >= ${db.escape(params.start)} AND Contenido.fecha_de_publicacion <= ${db.escape(params.end)} )
@@ -46,7 +48,7 @@ async function getDocumentosMenosDescargados(req: Request, res: Response) {
             idContenido
 
         ORDER BY
-            velocidad_descarga ASC`
+            velocidad_descarga`
 
     const a = await db.query(queryReporte,
         (err, rows) => {

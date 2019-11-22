@@ -76,11 +76,17 @@
       <td mat-cell *matCellDef="let element"> {{element.contenido}} </td>
     </ng-container>
 
-    <!-- Contenido Column -->
+    <!-- Velocidad Column -->
     <ng-container matColumnDef="velocidad_descarga">
       <th mat-header-cell *matHeaderCellDef> Promedio de velocidades de descarga </th>
       <td mat-cell *matCellDef="let element"> {{element.velocidad_descarga | number }} Mb/s </td>
     </ng-container>
+
+     <!-- Cantidad Column -->
+     <ng-container matColumnDef="cantidad_descargas">
+        <th mat-header-cell *matHeaderCellDef> Cantidad de descargas </th>
+        <td mat-cell *matCellDef="let element"> {{element.cantidad_descargas | number }} </td>
+      </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

@@ -107,10 +107,9 @@
               &nbsp;
               &nbsp;
               <button class="botonEditar" >
-              <a (click)="onDownloadClick($event, element)" download>
-                  <!-- (click)="descargarDocumento(element)" -->
-                  <i class="material-icons">get_app</i>
-                </a>
+
+                  <i (click)="onDownloadClick($event, element)" class="material-icons">get_app</i>
+
               </button>
           </ng-container>
 

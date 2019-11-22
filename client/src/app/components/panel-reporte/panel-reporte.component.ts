@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator, PageEvent } from '@angular/material'
+import { MatTableDataSource, MatSort, MatPaginator, PageEvent, Sort } from '@angular/material'
 import { ServiceDocumentos } from 'src/app/services/serviceDocumentos.service';
 import { Documento } from 'src/app/domain/documento';
 import { formatDate } from '@angular/common';
@@ -27,7 +27,7 @@ export class PanelReporteComponent implements OnInit {
   fechaDesdePosta: string = null
   fechaHastaPosta: string = null
 
-  displayedColumns: string[] = ['idContenido', 'nombre', 'extension', 'fecha_de_publicacion', 'velocidad_descarga'];
+  displayedColumns: string[] = ['idContenido', 'nombre', 'extension', 'fecha_de_publicacion', 'velocidad_descarga', 'cantidad_descargas'];
   dataSource = new MatTableDataSource(this.TABLE_DATA)
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatSort, { static: true }) sort: MatSort
@@ -65,26 +65,41 @@ export class PanelReporteComponent implements OnInit {
       params.end = this.fechaHastaPosta
     }
 
-    params.order = this.order
+    // Puede parecer que este order no hace nada, pero si lo sacas rompes todo
+    // TODO: Debuggear porque se rompe cuando lo sacas
+    params.order = 'desc'
 
+    console.log(params)
     this.TABLE_DATA = await this.serviceReportes.getDocumentosReporte(params)
 
     this.dataSource = new MatTableDataSource(this.TABLE_DATA)
     this.dataSource.paginator = this.paginator
     this.dataSource.sort = this.sort
+
+    let sortState: Sort
+
+    if (this.order === 'asc') {
+      sortState = { active: 'cantidad_descargas', direction: 'desc' };
+    } else {
+      sortState = { active: 'cantidad_descargas', direction: 'asc' };
+    }
+
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
   }
 
   calcularPromedio(event?: PageEvent) {
     const skip = this.paginator.pageSize * this.paginator.pageIndex;
     const pagedData = this.TABLE_DATA.filter((u, i) => i >= skip)
-    .filter((u, i) => i < this.paginator.pageSize);
+      .filter((u, i) => i < this.paginator.pageSize);
 
     const velocidades = pagedData.map(doc => doc.velocidad_descarga)
     const promedio = velocidades.reduce((a, b) => a + b) / velocidades.length
     this.promedioDocumentosSeleccionados = promedio
   }
 
-  renderizaMasDescargados(){
+  renderizaMasDescargados() {
     return this.order === 'asc'
   }
 
