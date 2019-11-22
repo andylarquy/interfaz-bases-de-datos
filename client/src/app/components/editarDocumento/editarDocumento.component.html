@@ -4,32 +4,48 @@
 <div mat-dialog-content class="matDialogContent">
   <br>
 
-
+  <div class="horizontal">
+  
   <mat-form-field class="formTitulo">
     <mat-label>Titulo...</mat-label>
     <input matInput [(ngModel)]="data.documento.titulo">
   </mat-form-field>
 
+  <div *ngIf="done" style="margin-left:3%; margin-top: 4%;">
+      <i style="color: green" class="material-icons">
+        done
+      </i>
+    </div>
+  </div>
+
   <br>
   <br>
 
-  <div style="margin-bottom: 2%;">
+  
 
-    <button mat-raised-button class="botonExaminar">
-      <div>
-        <label for="singleFile">Examinar...</label>
-        <input type="file" id="singleFile" accept="{{extensionesPosiblesFormateadas()}}"
-          (change)="handleFileInput($event.target.files)" />
-        <br>
-      </div>
-    </button>
+  <br>
+  <div class="horizontal" style="margin-bottom: 2%;">
 
-    &nbsp; &nbsp; &nbsp;
+      <button mat-raised-button class="botonExaminar">
+        <div>
+          <label for="singleFile">Examinar...</label>
+          <input type="file" id="singleFile" accept="{{extensionesPosiblesFormateadas()}}"
+            (change)="handleFileInput($event.target.files)" />
+          <br>
+        </div>
+      </button>
 
     <div>
       <mat-spinner *ngIf="loading" [diameter]="45"></mat-spinner>
     </div>
+
+
+
   </div>
+
+    &nbsp; &nbsp; &nbsp;
+
+
 
   <div *ngIf="esUnDocumentoDeTextoPlano()">
     <mat-form-field class="formContenido">
@@ -43,9 +59,9 @@
 <br>
 
 <div style="width: 100%; margin: auto; margin-top: 2em;" *ngIf="errorMessage" class="md-form">
-    <div class="alert alert-danger">
-        {{errorMessage}}
-    </div>
+  <div class="alert alert-danger">
+    {{errorMessage}}
+  </div>
 </div>
 
 

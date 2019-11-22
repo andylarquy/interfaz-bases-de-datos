@@ -30,6 +30,7 @@ export class EditarDocumentoComponent implements OnInit {
 
   fileToUpload: File = null;
   loading = false;
+  done = false;
 
   errorMessage: string
 
@@ -41,29 +42,38 @@ export class EditarDocumentoComponent implements OnInit {
   }
 
   cancelarEdicion(): void {
-    this.dialogRef.close();
+    if (!this.loading) {
+      this.dialogRef.close();
+    }
   }
 
   async aceptarEdicion() {
     // TODO: corregir este if
+    this.loading = true
+    this.done = false
     try {
 
       this.validarArchivo()
 
       if (this.data.esUnaEdicion) {
         await this.serviceDocumentos.actualizarDocumentoEnElBack(this.data.documento)
+        this.loading = true
       } else {
-        this.loading = false
         await this.serviceDocumentos.agregarDocumentoEnElBack(this.data.documento)
+        this.loading = false
+        this.done = true
       }
       this.dialogRef.close();
     } catch (error) {
       this.errorMessage = error.message
+      this.loading = false
+      this.done = true
     }
   }
 
   async handleFileInput(files: FileList) {
     this.errorMessage = ''
+    this.done = false;
     this.loading = true
     try {
       this.fileToUpload = files.item(0);
@@ -74,7 +84,7 @@ export class EditarDocumentoComponent implements OnInit {
 
       this.data.documento.contenido = await this.formatFile()
       console.log(this.data.documento)
-
+      this.done = true;
 
 
     } catch (error) {
