@@ -34,8 +34,9 @@ export class EditarDocumentoComponent implements OnInit {
   errorMessage: string
 
   async ngOnInit() {
-    if(this.data.esUnaEdicion){
+    if (this.data.esUnaEdicion) {
       this.data.documento = await this.serviceDocumentos.getDocumentoById(this.data.documento.idContenido)
+      this.data.documento = this.data.documento[0]
     }
   }
 
@@ -65,7 +66,6 @@ export class EditarDocumentoComponent implements OnInit {
     this.errorMessage = ''
     this.loading = true
     try {
-      
       this.fileToUpload = files.item(0);
       const fileNameAndExtension = this.fileToUpload.name.split('.')
       this.data.documento.titulo = fileNameAndExtension[0]
@@ -106,7 +106,7 @@ export class EditarDocumentoComponent implements OnInit {
       throw new Error('La extensión del archivo no está permitida')
     }
 
-    if (this.fileToUpload.size > PESO_MAXIMO_PERMITIDO_BYTES) {
+    if (this.fileToUpload && this.fileToUpload.size > PESO_MAXIMO_PERMITIDO_BYTES) {
       throw new Error('El máximo peso permitido es de ' + PESO_MAXIMO_PERMITIDO_BYTES / 1048576 + ' MB')
     }
   }
