@@ -4,6 +4,7 @@ import { DocumentosComponent } from '../documentos/documentos.component';
 import { Documento } from 'src/app/domain/documento';
 import { extensionesPosibles } from 'src/app/domain/extensiones'
 import { ServiceDocumentos } from 'src/app/services/serviceDocumentos.service';
+import { MatSnackBar } from '@angular/material';
 
 export interface DialogData {
   documento: Documento
@@ -23,6 +24,7 @@ export class EditarDocumentoComponent implements OnInit {
 
   extensionesPosibles = extensionesPosibles
   constructor(
+    private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<DocumentosComponent>,
     private serviceDocumentos: ServiceDocumentos,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
@@ -63,7 +65,10 @@ export class EditarDocumentoComponent implements OnInit {
         this.loading = false
         this.done = true
       }
+
+      this.openSnackBar()
       this.dialogRef.close();
+
     } catch (error) {
       this.errorMessage = error.message
       this.loading = false
@@ -72,6 +77,7 @@ export class EditarDocumentoComponent implements OnInit {
   }
 
   async handleFileInput(files: FileList) {
+    this.resetearDocumento()
     this.errorMessage = ''
     this.done = false;
     this.loading = true
@@ -119,6 +125,19 @@ export class EditarDocumentoComponent implements OnInit {
     if (this.fileToUpload && this.fileToUpload.size > PESO_MAXIMO_PERMITIDO_BYTES) {
       throw new Error('El máximo peso permitido es de ' + PESO_MAXIMO_PERMITIDO_BYTES / 1048576 + ' MB')
     }
+  }
+
+
+  resetearDocumento() {
+    this.data.documento.contenido = undefined
+    this.data.documento.titulo = undefined
+    this.data.documento.extension = undefined
+  }
+
+  openSnackBar() {
+    this.snackBar.open('El documento ha sido añadido con exito!', 'Aceptar', {
+      duration: 2000,
+    });
   }
 
 }
