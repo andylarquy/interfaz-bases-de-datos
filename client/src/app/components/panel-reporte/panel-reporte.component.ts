@@ -91,10 +91,20 @@ export class PanelReporteComponent implements OnInit {
 
   calcularPromedio(event?: PageEvent) {
     const skip = this.paginator.pageSize * this.paginator.pageIndex;
-    const pagedData = this.TABLE_DATA.filter((u, i) => i >= skip)
-      .filter((u, i) => i < this.paginator.pageSize);
+    let sortedData
 
-    const velocidades = pagedData.map(doc => doc.velocidad_descarga)
+    if(this.order === 'asc'){
+    sortedData = this.TABLE_DATA.slice().sort((a, b) => b.cantidad_descargas - a.cantidad_descargas);
+    }else{
+      sortedData = this.TABLE_DATA.slice().sort((a, b) => a.cantidad_descargas - b.cantidad_descargas);
+
+    }
+    
+    let pagedData = sortedData.filter((u, i) => i >= skip)
+    .filter((u, i) => i < this.paginator.pageSize);
+    
+      const velocidades = pagedData.map(doc => doc.velocidad_descarga)
+      console.log(velocidades);
     const promedio = velocidades.reduce((a, b) => a + b) / velocidades.length
     this.promedioDocumentosSeleccionados = promedio
   }
