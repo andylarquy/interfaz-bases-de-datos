@@ -21,12 +21,13 @@ class ReportesDocumentosController {
     }
 }
 
+// ATENTO AL CODIGO REPETIDO
 async function getDocumentosMenosDescargados(req: Request, res: Response) {
     const params = req.query
 
     const queryReporte = `
         SELECT
-            idContenido, extension, titulo, fecha_de_publicacion, contenido, AVG(DescargaDocumento.velocidad_descarga) as velocidad_descarga
+            idContenido, extension, titulo, fecha_de_publicacion, AVG(DescargaDocumento.velocidad_descarga) as velocidad_descarga
         FROM 
             Contenido
         INNER JOIN 
@@ -66,7 +67,7 @@ async function getDocumentosMasDescargados(req: Request, res: Response) {
 
     const queryReporte = `
     SELECT
-    idContenido, extension, titulo, fecha_de_publicacion, contenido, AVG(DescargaDocumento.velocidad_descarga) as velocidad_descarga
+    idContenido, extension, titulo, fecha_de_publicacion, AVG(DescargaDocumento.velocidad_descarga) as velocidad_descarga
     FROM 
         Contenido
     INNER JOIN 
