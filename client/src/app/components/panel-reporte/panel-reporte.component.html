@@ -92,7 +92,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   
-  <mat-paginator [pageSizeOptions]="[1,2,5,10,15,20,25]" showFirstLastButtons (page)="pageEvent = calcularPromedio($event)"
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[1,2,5,10,15,20,25]" showFirstLastButtons (page)="pageEvent = calcularPromedio($event)"
   matSortActive="velocidad_descarga" matSortDirection={{order}} class="tableContent"></mat-paginator>
 </div>
 

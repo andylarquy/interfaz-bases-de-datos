@@ -80,7 +80,7 @@
 
           <!-- Fecha Column -->
           <ng-container matColumnDef="fecha_de_publicacion">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha </th>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> Fecha de publicación </th>
             <td mat-cell *matCellDef="let element"> {{element.fecha_de_publicacion | date:'dd/MM/yyyy'}} </td>
           </ng-container>
 
@@ -98,18 +98,18 @@
               </button>
 
               &nbsp;
-              &nbsp;
 
               <button class="botonEliminar" (click)="eliminarDocumento(element)">
                 <i class="material-icons">delete</i>
               </button>
 
               &nbsp;
-              &nbsp;
-              <button class="botonEditar" >
 
-                  <i (click)="onDownloadClick($event, element)" class="material-icons">get_app</i>
+              <button (click)="onDownloadClick($event, element)" class="botonDescargar"  >
 
+                <i class="material-icons">get_app</i>
+                <a >
+                </a>
               </button>
           </ng-container>
 
@@ -117,7 +117,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[1,2,5,10,15,20,25]" showFirstLastButtons class="tableContent">
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[1,2,5,10,15,20,25]" showFirstLastButtons class="tableContent">
         </mat-paginator>
 
       </div>

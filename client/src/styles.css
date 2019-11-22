@@ -6,8 +6,27 @@ body {
     background-color: #e1f0df;
 }
 
-table {
+.table {
+    text-align: center !important;
     width: 100%;
+  }
+
+
+  .mat-header-cell{
+      white-space: nowrap;
+      text-align: center !important;
+      padding: 0% 3% !important;
+      width: 1%;
+      
+    }
+    
+    /* debugger // comenta el overflow para debuggear*/
+.mat-cell {
+    text-align: center;
+    white-space: nowrap;
+    max-width: 8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* TODO: Revisar si sobra */
@@ -157,6 +176,17 @@ table {
 
 .botonEditar:hover {
     color: #184a41;
+}
+
+.botonDescargar {
+    color: 	#e0ca84;
+    background: transparent;
+    border: none;
+    text-decoration: none;
+}
+
+.botonDescargar:hover {
+    color: #c7a02a;
 }
 
 input[type="file"] {

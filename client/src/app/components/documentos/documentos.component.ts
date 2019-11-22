@@ -153,7 +153,8 @@ export class DocumentosComponent implements OnInit {
   }
 
   async realizarDescarga(event, documento: Documento) {
-    const anchor = event.target.parentNode;
+
+    const anchor = event.target.nextElementSibling;
     documento = documento[0]
 
     const response = await axios({
