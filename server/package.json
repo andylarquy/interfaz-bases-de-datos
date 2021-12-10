@@ -18,7 +18,7 @@
     "morgan": "^1.9.1",
     "promise-mysql": "^4.1.1",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.4"
+    "typescript": "^3.9.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
